@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'TAEN_APP.apps.TaenAppConfig',
+    'registration',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -135,8 +136,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 PASSWORD_HASHERS = (
-        'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-        'django.contrib.auth.hashers.BCryptPasswordHasher',
-        'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-        'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+                'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
+                'django.contrib.auth.hashers.BCryptPasswordHasher',
+                'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+                'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
 )
+
+REGISTRATION_OPEN = True
+ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_URL = '/accounts/login'
