@@ -17,7 +17,7 @@ class Industry(models.Model):
         return industry
 
 class Entertaener(models.Model):
-    # user = models.OneToOneField(User)
+    user = models.OneToOneField(User, null=True)
     name = models.CharField(max_length = 32, default='anonymous');
 
     industry = models.ForeignKey(Industry, null=True)
