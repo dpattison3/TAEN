@@ -25,17 +25,20 @@ SECRET_KEY = 'u$ycr80e6jr=+ts77jtp4y3#gp4p%2^ij-2j0s8a41*15o5bns'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['entertaen.com', 'www.entertaen.com',]
+ALLOWED_HOSTS = []
+
+SITE_ID = 1
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
     'django.contrib.auth',
+    'django.contrib.admin',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.sites',
     'django.contrib.staticfiles',
     'TAEN_APP.apps.TaenAppConfig',
     'registration',
@@ -57,7 +60,9 @@ ROOT_URLCONF = 'TAEN.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -106,6 +111,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# These settings set up email sending which prints out the email in the terminal - Needs to change before release
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'support@entertaen.com'
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -135,6 +144,7 @@ STATICFILES_DIR = (
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+# installed higher security password hashers
 PASSWORD_HASHERS = (
                 'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
                 'django.contrib.auth.hashers.BCryptPasswordHasher',
@@ -145,4 +155,4 @@ PASSWORD_HASHERS = (
 REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_URL = '/accounts/login'
+LOGIN_URL = '/accounts/login/'
