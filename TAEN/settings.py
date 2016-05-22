@@ -111,10 +111,15 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-# These settings set up email sending which prints out the email in the terminal - Needs to change before release
+# These settings set up email sending which prints out the email in the terminal - Needs to change before release - use format below
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'support@entertaen.com'
-
+# format for future real email server
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_HOST_USER = 'user@gmail.com'
+# EMAIL_HOST_PASSWORD = 'password'
+# EMAIL_PORT = 587
+# EMAIL_USE_TLS = True
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.9/topics/i18n/
@@ -156,3 +161,4 @@ REGISTRATION_OPEN = True
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_URL = '/accounts/login/'
+LOGIN_REDIRECT_URL = '/profiles/'
