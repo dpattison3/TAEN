@@ -4,7 +4,9 @@ from django.conf import settings
 from . import views
 
 urlpatterns = [
-        url(r'^$', views.home, name = 'home'),
+        url(r'^$', views.index, name = 'index'),
         url(r'^about/$', views.about, name = 'about'),
-        url(r'^profiles/$', views.profiles, name = 'profile views'),
+        url(r'^home/$', views.home, name = 'home'),
+        url(r'^profile/$', views.profile, name = 'profile'),
+        url(r'^edit_profile/$', views.profileEdit, name='edit_profile'),
 ]

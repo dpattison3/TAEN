@@ -1,9 +1,17 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    <h1>Welcome to the profiles view!</h1>
-    <p>
-        We will be adding a better template for filling in the template with
-        the prfile data in the database.
-    </p>
+    <h1>Welcome to the inside of TAEN!</h1>
+    <h3>Hello I am {{ profile.name }}</h3>
+        <p>
+        Industry: {{ profile.industry }}
+        </p>
+        <p>
+        Pitch: {{ profile.pitch }}
+        </p>
+        <p>
+        Portfolio: {{ profile.portfolio }}
+        </p>
+        <p>
+        <a href="{% url 'edit_profile' %}">Edit Profile</a>
 {% endblock %}

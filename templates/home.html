@@ -1,5 +1,17 @@
 {% extends 'base.html' %}
 
 {% block body_block %}
-    <h1>Welcome to TAEN!</h1>
+    <h1>Welcome to the inside of TAEN!</h1>
+    {% for profile in profiles %}
+      <h3>Hello I am {{ profile.name }}</h3>
+          <p>
+          Industry: {{ profile.industry }}
+          </p>
+          <p>
+          Pitch: {{ profile.pitch }}
+          </p>
+          <p>
+          Portfolio: {{ profile.portfolio }}
+          </p>
+    {% endfor %}
 {% endblock %}
