@@ -22,15 +22,18 @@ def profile(request):
 @login_required
 def profileEdit(request):
     if request.method == 'POST':
-        data = {'name': request.user.profile.name}
-        form = EditProfile(request.POST, initial = data, instance=request.user.profile)
+        form = EditProfile(request.POST,request.FILES or None, instance=request.user.profile)
 
         if form.is_valid():
             form.save(commit = True)
-            return home(request)
+            return profile(request)
         else:
             print form.errors
     else:
-        form = EditProfile()
+        data = {'name': request.user.profile.name,
+                'pitch': request.user.profile.pitch,
+                'picture': request.user.profile.picture,
+        }
+        form = EditProfile(initial=data)
 
     return render(request, 'profileEdit.html', {'form': form})

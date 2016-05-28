@@ -1,8 +1,16 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 
 {% block body_block %}
     <h1>Welcome to the inside of TAEN!</h1>
     <h3>Hello I am {{ profile.name }}</h3>
+        <p>
+        {% if profile.picture %}
+            <img src={{ profile.picture.url }} />
+        {% else %}
+            <img src="{% static 'images/defaultProfile.png' %}" />
+        {% endif %}
+        </p>
         <p>
         Industry: {{ profile.industry }}
         </p>
