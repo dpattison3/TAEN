@@ -21,5 +21,9 @@
         Portfolio: {{ profile.portfolio }}
         </p>
         <p>
+        Talents: {{ profile.talents.all }}
+        </p>
+        <p>
         <a href="{% url 'edit_profile' %}">Edit Profile</a>
+        </p>
 {% endblock %}

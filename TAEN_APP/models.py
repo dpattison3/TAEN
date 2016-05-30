@@ -8,24 +8,27 @@ def imgUploadLocation(instance, filename):
     return "%s/%s" %(instance.id, filename)
 
 class Talent(models.Model):
-    Recording = 'R'
-    Musician = 'M'
-    Producer = 'P'
-    Talent_Choices = (
+    Recording = 0
+    Musician = 1
+    Producer = 2
+    Talent_Choices = [
             (Recording, 'Recording'),
             (Musician, 'Musician'),
             (Producer, 'Producer'),
-    )
-    talent = models.CharField(max_length=1, choices=Talent_Choices, blank=True)
+    ]
+    talent = models.IntegerField(choices=Talent_Choices, null=True, blank=True)
+
+    def __iter__(self):
+        return iter(self.Talent_Choices)
 
     def __str__(self):
-        return talent
+        return self.Talent_Choices[self.talent][1]
 
 class Entertaener(models.Model):
     user = models.OneToOneField(User, related_name='profile')
     name = models.CharField(max_length = 32, default='anonymous');
 
-    talent = models.ForeignKey(Talent, null=True)
+    talent = models.ManyToManyField(Talent)
 
     pitch = models.CharField(max_length=5000, blank=True, null=True)
 
