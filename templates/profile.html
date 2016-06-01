@@ -20,7 +20,13 @@
         <p>
         Talents: {{ profile.talent.all }}
         </p>
+        {% if isSelf %}
         <p>
         <a href="{% url 'edit_profile' %}">Edit Profile</a>
         </p>
+        {% elif not isContact %}
+        <p>
+        Add contact
+        </p>
+        {% endif %}
 {% endblock %}

@@ -16,8 +16,8 @@
             <ul>
                 <li><a href="{% url 'home' %}">Entertaen</a></li>
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'profile' %}">Profile</a></li>
                 <li><a href="{% url 'auth_logout' %}?next={% url 'index' %}">Logout</a></li>
+                <li><a href="{% url 'profileSelf' %}">Profile</a>
                 {% else %}
                 <li><a href="{% url 'auth_login' %}">Login</a></li>
                 {% endif %}

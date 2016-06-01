@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.models import User
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from TAEN_APP.forms import EditProfile
 from TAEN_APP.models import Entertaener, Talent
 
@@ -12,12 +14,35 @@ def about(request):
 
 @login_required
 def home(request):
-    entries = Entertaener.objects.all()
-    return render(request, 'home.html', {'profiles': entries})
+    entertaenerList = Entertaener.objects.exclude(user=request.user)
+    paginator = Paginator(entertaenerList, 1) # show 3 per page
+
+    page = request.GET.get('page')
+    try:
+        entertaeners = paginator.page(page)
+    except PageNotAnInteger:
+        entertaeners = paginator.page(1)
+    except EmptyPage:
+        entertaeners = paginator.page(paginator.num_pages)
+
+    return render(request, 'home.html', {'profiles': entertaeners})
 
 @login_required
-def profile(request):
-    return render(request, 'profile.html', {'profile': request.user.profile})
+def profile(request, username=None):
+    if username != None and username != request.user.username:
+        user = User.objects.get(username=username)
+        isSelf = False
+        isContact = False
+    else:
+        user = request.user
+        isSelf = True
+        isContact = False
+    context = {
+            'profile': user.profile,
+            'isSelf': isSelf,
+            'isContact': isContact
+    }
+    return render(request, 'profile.html', context)
 
 @login_required
 def profileEdit(request):

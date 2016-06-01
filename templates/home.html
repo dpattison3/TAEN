@@ -22,6 +22,23 @@
           <p>
           Talents: {{ profile.talent.all }}
           <p>
+          <p>
+          <a href="{% url 'profile' username=profile %}">View Profile</a>
+          </p>
           <hr/>
     {% endfor %}
+
+    <span>
+        {% if profiles.has_previous %}
+            <a href="?page={{ profiles.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span>
+            Page {{ profiles.number }} of {{ profiles.paginator.num_pages }}
+        </span>
+
+        {% if profiles.has_next %}
+            <a href="?page={{ profiles.next_page_number }}">next</a>
+        {% endif %}
+    </span>
 {% endblock %}
