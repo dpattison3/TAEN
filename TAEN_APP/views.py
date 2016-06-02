@@ -1,8 +1,10 @@
 from django.shortcuts import render
+from django.shortcuts import redirect
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import Http404
 from TAEN_APP.forms import EditProfile
 from TAEN_APP.models import Entertaener, Talent
 
@@ -15,7 +17,7 @@ def about(request):
 @login_required
 def home(request):
     entertaenerList = Entertaener.objects.exclude(user=request.user)
-    paginator = Paginator(entertaenerList, 1) # show 3 per page
+    paginator = Paginator(entertaenerList, 3) # show 3 per page
 
     page = request.GET.get('page')
     try:
@@ -32,7 +34,7 @@ def profile(request, username=None):
     if username != None and username != request.user.username:
         user = User.objects.get(username=username)
         isSelf = False
-        isContact = False
+        isContact = request.user.profile.contacts.filter(user=user).exists()
     else:
         user = request.user
         isSelf = True
@@ -40,7 +42,8 @@ def profile(request, username=None):
     context = {
             'profile': user.profile,
             'isSelf': isSelf,
-            'isContact': isContact
+            'isContact': isContact,
+            'contacts': request.user.profile.contacts,
     }
     return render(request, 'profile.html', context)
 
@@ -51,7 +54,7 @@ def profileEdit(request):
 
         if form.is_valid():
             form.save(commit=True)
-            return profile(request)
+            return redirect('profile', username=request.user.username)
         else:
             print form.errors
     else:
@@ -64,3 +67,12 @@ def profileEdit(request):
 
     return render(request, 'profileEdit.html', {'form': form})
 
+@login_required
+def addContact(request, username):
+    if username == None:
+        return Http404("Error cannot add contact without username")
+    else:
+        userToAdd = User.objects.get(username=username)
+        userToAdd = Entertaener.objects.get(user=userToAdd)
+        request.user.profile.contacts.add(userToAdd)
+        return redirect('profile', username=username)

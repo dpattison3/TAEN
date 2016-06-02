@@ -10,4 +10,5 @@ urlpatterns = [
         url(r'^edit_profile/$', views.profileEdit, name='edit_profile'),
         url(r'^profile/$', views.profile, name='profileSelf'),
         url(r'^profile/(?P<username>[\w.@+-]+)/$', views.profile, name='profile'),
+        url(r'^profile/(?P<username>[\w.@+-]+)/add_contact/$', views.addContact, name='add_contact'),
 ]

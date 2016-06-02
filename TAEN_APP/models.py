@@ -29,6 +29,7 @@ class Entertaener(models.Model):
     name = models.CharField(max_length = 32, default='anonymous');
 
     talent = models.ManyToManyField(Talent)
+    contacts = models.ManyToManyField('self')
 
     pitch = models.CharField(max_length=5000, blank=True, null=True)
 
