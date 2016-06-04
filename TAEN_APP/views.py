@@ -68,7 +68,7 @@ def profileEdit(request):
         data = {'name': request.user.profile.name,
                 'pitch': request.user.profile.pitch,
                 'picture': request.user.profile.picture,
-                #'talent': request.user.profile.talent, TODO preselect existing talents
+                'talent': request.user.profile.talent.all(),
         }
         form = EditProfile(initial=data)
 
