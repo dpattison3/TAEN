@@ -12,5 +12,4 @@ urlpatterns = [
         url(r'^profile/(?P<username>[\w.@+-]+)/$', views.profile, name='profile'),
         url(r'^profile/(?P<username>[\w.@+-]+)/add_contact/$', views.addContact, name='add_contact'),
         url(r'contacts/$', views.contacts, name='contacts'),
-        url(r'(?P<talent>[\w]+)/$', views.talentFilter, name='talentFilter'),
 ]

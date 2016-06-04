@@ -4,7 +4,6 @@ from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
 from django.http import Http404
 from TAEN_APP.forms import EditProfile
 from TAEN_APP.models import Entertaener, Talent
@@ -18,12 +17,12 @@ def about(request):
 @login_required
 def home(request):
     entertaenerList = Entertaener.objects.exclude(user=request.user)
-
     search = request.GET.get('search')
+    talentFilter = request.GET.get('filter')
+    if talentFilter:
+        entertaenerList =  entertaenerList.filter(talent=(Talent.Talent_Dictionary[talentFilter]+1))
     if search:
-        entertaenerList = entertaenerList.filter(
-                Q(name__icontains=search)
-        ).distinct()
+        entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
 
     paginator = Paginator(entertaenerList, 3) # show 3 per page
     page = request.GET.get('page')
@@ -101,25 +100,3 @@ def contacts(request):
     talentList = Talent.objects.all()
     return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})
 
-@login_required
-def talentFilter(request, talent):
-    entertaenerList = Entertaener.objects.filter(talent=(Talent.Talent_Dictionary[talent]+1)).exclude(user=request.user)
-
-    search = request.GET.get('search')
-    if search:
-        entertaenerList = entertaenerList.filter(
-                Q(name__icontains=search)
-        ).distinct()
-
-
-    paginator = Paginator(entertaenerList, 3)
-    page = request.GET.get('page')
-    try:
-        entertaeners = paginator.page(page)
-    except PageNotAnInteger:
-        entertaeners = paginator.page(1)
-    except EmptyPage:
-        entertaeners = paginator.page(paginator.num_pages)
-
-    talentList = Talent.objects.all()
-    return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})

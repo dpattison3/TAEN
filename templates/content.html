@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <h1>Welcome to the inside of TAEN!</h1>
+
+    <form method='GET' action="">
+        {% if request.GET.filter %}
+            <input type='hidden' name='filter' value={{ request.GET.filter }} />
+        {% endif %}
+        <input type='text' name='search' placeholder='Search' value="{{ request.GET.search }}" />
+        <input type='submit' value='Search' />
+    </form>
+
+    {% block content %}
+    {% endblock %}
+
+{% endblock %}
