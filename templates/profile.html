@@ -22,8 +22,10 @@
         </p>
         {% if isSelf %}
         <p>
-        <a href="{% url 'edit_profile' %}">Edit Profile</a>
         Contacts: {{ profile.contacts.all }}
+        </p>
+        <p>
+        <a href="{% url 'edit_profile' %}">Edit Profile</a>
         </p>
         {% elif not isContact %}
         <p>

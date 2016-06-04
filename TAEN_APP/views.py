@@ -27,7 +27,8 @@ def home(request):
     except EmptyPage:
         entertaeners = paginator.page(paginator.num_pages)
 
-    return render(request, 'home.html', {'profiles': entertaeners})
+    talentList = Talent.objects.all()
+    return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})
 
 @login_required
 def profile(request, username=None):
@@ -76,3 +77,35 @@ def addContact(request, username):
         userToAdd = Entertaener.objects.get(user=userToAdd)
         request.user.profile.contacts.add(userToAdd)
         return redirect('profile', username=username)
+
+@login_required
+def contacts(request):
+    entertaenerList = request.user.profile.contacts.all()
+    paginator = Paginator(entertaenerList, 3) # show 3 per page
+
+    page = request.GET.get('page')
+    try:
+        entertaeners = paginator.page(page)
+    except PageNotAnInteger:
+        entertaeners = paginator.page(1)
+    except EmptyPage:
+        entertaeners = paginator.page(paginator.num_pages)
+
+    talentList = Talent.objects.all()
+    return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})
+
+@login_required
+def talentFilter(request, talent):
+    entertaenerList = Entertaener.objects.filter(talent=(Talent.Talent_Dictionary[talent]+1)).exclude(user=request.user)
+    paginator = Paginator(entertaenerList, 3)
+
+    page = request.GET.get('page')
+    try:
+        entertaeners = paginator.page(page)
+    except PageNotAnInteger:
+        entertaeners = paginator.page(1)
+    except EmptyPage:
+        entertaeners = paginator.page(paginator.num_pages)
+
+    talentList = Talent.objects.all()
+    return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})

@@ -4,6 +4,9 @@
 {% block body_block %}
     <h1>Welcome to the inside of TAEN!</h1>
     <hr/>
+    {% for talent in talents %}
+      <a href="{% url 'talentFilter' talent=talent %}">{{ talent }}</a>
+    {% endfor %}
     {% for profile in profiles %}
       <h3>Hello I am {{ profile.name }}</h3>
           <p>

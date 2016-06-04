@@ -16,6 +16,11 @@ class Talent(models.Model):
             (Musician, 'Musician'),
             (Producer, 'Producer'),
     ]
+    Talent_Dictionary = {
+            'Recording': Recording,
+            'Musician': Musician,
+            'Producer': Producer,
+    }
     talent = models.IntegerField(choices=Talent_Choices, null=True, blank=True)
 
     def __iter__(self):

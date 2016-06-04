@@ -18,6 +18,7 @@
                 {% if user.is_authenticated %}
                 <li><a href="{% url 'auth_logout' %}?next={% url 'index' %}">Logout</a></li>
                 <li><a href="{% url 'profileSelf' %}">Profile</a>
+                <li><a href="{% url 'contacts' %}">Contacts</a>
                 {% else %}
                 <li><a href="{% url 'auth_login' %}">Login</a></li>
                 {% endif %}
