@@ -87,8 +87,15 @@ def addContact(request, username):
 @login_required
 def contacts(request):
     entertaenerList = request.user.profile.contacts.all()
-    paginator = Paginator(entertaenerList, 3) # show 3 per page
 
+    search = request.GET.get('search')
+    talentFilter = request.GET.get('filter')
+    if talentFilter:
+        entertaenerList =  entertaenerList.filter(talent=(Talent.Talent_Dictionary[talentFilter]+1))
+    if search:
+        entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
+
+    paginator = Paginator(entertaenerList, 3) # show 3 per page
     page = request.GET.get('page')
     try:
         entertaeners = paginator.page(page)
