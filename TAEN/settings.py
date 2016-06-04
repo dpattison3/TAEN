@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'TAEN_APP.apps.TaenAppConfig',
     'registration',
 ]
+if DEBUG:
+    INSTALLED_APPS += (
+            'sslserver',
+    )
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',
@@ -145,3 +149,7 @@ ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/home/'
+
+SECURE_SSL_REDIRECT = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
