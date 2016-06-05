@@ -4,8 +4,40 @@
 <h1>Register</h1>
     <form method="post" action=".">
         {% csrf_token %}
-        {{ form.as_p }}
+        {% for hidden in profileForm.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
 
-        <input type="submit" value="Submit"/>
+        <p>
+        {{ form.username.errors }}
+        Username:
+        {{ form.username }}
+        </p>
+
+        <p>
+        {{ form.email.errors }}
+        Email:
+        {{ form.email }}
+        </p>
+
+        <p>
+        {{ form.password1.errors }}
+        Password:
+        {{ form.password1 }}
+        </p>
+
+        <p>
+        {{ form.password2.errors }}
+        Password (again):
+        {{ form.password2 }}
+        </p>
+
+        <p>
+        {{ form.tos.errors }}
+        Agree to our <a href="{% url 'termsOfService' %}">terms of service</a>
+        {{ form.tos }}
+        </p>
+
+        <input type="submit" value="Register"/>
     </form>
 {% endblock %}

@@ -1,18 +1,26 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from registration.backends.default.views import ActivationView, RegistrationView
+from registration.models import RegistrationManager, RegistrationProfile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from TAEN_APP.forms import EditProfile
+from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm
 from TAEN_APP.models import Entertaener, Talent
+
 
 def index(request):
     return render(request, 'index.html', {})
 
 def about(request):
     return render(request, 'about.html', {})
+
+def termsOfService(request):
+    return render(request, 'termsOfService.html', {})
 
 @login_required
 def home(request):
@@ -57,22 +65,30 @@ def profile(request, username=None):
 @login_required
 def profileEdit(request):
     if request.method == 'POST':
-        form = EditProfile(request.POST,request.FILES or None, instance=request.user.profile)
+        profileForm = EditProfile(request.POST,request.FILES or None, instance=request.user.profile)
+        userForm = EditUser(request.POST, instance=request.user)
 
-        if form.is_valid():
-            form.save(commit=True)
+        if profileForm.is_valid() and userForm.is_valid():
+            profileForm.save(commit=True)
+            userForm.save(commit=True)
             return redirect('profile', username=request.user.username)
         else:
-            print form.errors
+            print(profileForm.errors)
+            print(userForm.errors)
     else:
-        data = {'name': request.user.profile.name,
+        profileData = {
+                'name': request.user.profile.name,
                 'pitch': request.user.profile.pitch,
                 'picture': request.user.profile.picture,
                 'talent': request.user.profile.talent.all(),
         }
-        form = EditProfile(initial=data)
+        userData = {
+                'email': request.user.email,
+        }
+        profileForm = EditProfile(initial=profileData) #, prefix='pro')
+        userForm = EditUser(initial=userData) #, prefix='usr')
 
-    return render(request, 'profileEdit.html', {'form': form})
+    return render(request, 'profileEdit.html', {'profileForm': profileForm, 'userForm': userForm})
 
 @login_required
 def addContact(request, username):
@@ -107,3 +123,25 @@ def contacts(request):
     talentList = Talent.objects.all()
     return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})
 
+class ActivateAccount(ActivationView):
+    def get_success_url(self, user):
+        return '/profile/'
+
+class Register(RegistrationView):
+    form_class = RegistrationForm
+
+def registrationComplete(request):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        if email:
+            site = get_current_site(request)
+            try:
+                user = User.objects.get(email=email)
+                regprof = RegistrationProfile.objects.get(user=user)
+                if not regprof.activated and not regprof.activation_key_expired():
+                    regprof.create_new_activation_key()
+                    regprof.send_activation_email(site, request)
+            except ObjectDoesNotExist:
+                pass
+            return redirect('registration_complete')
+    return render(request, 'registration_complete.html')

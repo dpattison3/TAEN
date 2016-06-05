@@ -19,9 +19,9 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
+    url(r'^', include('TAEN_APP.urls')),
     url(r'^accounts/', include('registration.backends.default.urls')),
     url(r'^admin/', admin.site.urls),
-    url(r'^', include('TAEN_APP.urls')),
 ]
 
 if settings.DEBUG:

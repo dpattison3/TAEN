@@ -3,14 +3,14 @@
 {% block body_block %}
     <h1>Edit your profile</h1>
 
-    <form id = "profile_form" method = "post" action="/edit_profile/" enctype='multipart/form-data'>
+    <form id="profile_form" method="post" action="/edit_profile/" enctype='multipart/form-data'>
         {% csrf_token %}
 
-        {% for hidden in form.hidden_fields %}
+        {% for hidden in profileForm.hidden_fields %}
             {{ hidden }}
         {% endfor %}
 
-        {% for field in form.visible_fields %}
+        {% for field in profileForm.visible_fields %}
             <p>
             {{ field.errors }}
             {{ field.help_text }}
@@ -18,6 +18,19 @@
             </p>
         {% endfor %}
 
-        <input type = "submit" name = "submit" value = "Update" />
+        {% for hidden in userForm.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+
+        {% for field in userForm.visible_fields %}
+            <p>
+            {{ field.errors }}
+            {{ field.help_text }}
+            {{ field }}
+            </p>
+        {% endfor %}
+
+        <input type="submit" name="submit" value="Update" />
     </form>
+
 {% endblock %}

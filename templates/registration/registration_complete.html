@@ -5,4 +5,15 @@
     <p>
     Check your email to complete registration.
     </p>
+    <p>
+    Not see it?
+    </p>
+    <p>
+    <form method='post' action='.'>
+        {% csrf_token %}
+        Email: <input type='text' name='email' placeholder='email' />
+        <input type='submit' value='resend' />
+    </form>
+    </p>
+
 {% endblock %}
