@@ -12,7 +12,6 @@ from django.http import Http404
 from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm
 from TAEN_APP.models import Entertaener, Talent
 
-
 def index(request):
     return render(request, 'index.html', {})
 
@@ -133,15 +132,21 @@ class Register(RegistrationView):
 def registrationComplete(request):
     if request.method == 'POST':
         email = request.POST.get('email')
-        if email:
-            site = get_current_site(request)
-            try:
-                user = User.objects.get(email=email)
-                regprof = RegistrationProfile.objects.get(user=user)
-                if not regprof.activated and not regprof.activation_key_expired():
-                    regprof.create_new_activation_key()
-                    regprof.send_activation_email(site, request)
-            except ObjectDoesNotExist:
-                pass
-            return redirect('registration_complete')
-    return render(request, 'registration_complete.html')
+        username = request.POST.get('username')
+    if request.method != 'POST' or (not email and not (email and username)):
+        return render(request, 'registration_complete.html')
+    site = get_current_site(request)
+    try:
+        if email and not username:
+            user = User.objects.get(email=email)
+        elif email and username:
+            user = User.objects.get(username=username)
+            user.email = email
+            user.save()
+        registrationProfile = RegistrationProfile.objects.get(user=user)
+        if not registrationProfile.activated and not registrationProfile.activation_key_expired():
+            registrationProfile.create_new_activation_key()
+            registrationProfile.send_activation_email(site, request)
+    except ObjectDoesNotExist:
+        pass
+    return redirect('registration_complete')
