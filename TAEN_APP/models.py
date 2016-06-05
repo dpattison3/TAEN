@@ -30,7 +30,7 @@ class Talent(models.Model):
         return self.Talent_Choices[self.talent][1]
 
 class Entertaener(models.Model):
-    user = models.OneToOneField(User, related_name='profile')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     name = models.CharField(max_length = 32, default='anonymous');
 
     talent = models.ManyToManyField(Talent)
