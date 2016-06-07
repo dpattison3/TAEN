@@ -20,6 +20,11 @@
         <p>
         Talents: {{ profile.talent.all }}
         </p>
+        {% if not isSelf %}
+        <p>
+        Distance: {{ distance }}
+        </p>
+        {% endif %}
         {% if isSelf %}
         <p>
         Contacts: {{ profile.contacts.all }}
@@ -32,6 +37,10 @@
         <a href="{% url 'add_contact' username=profile %}">Add Contact</a>
         </p>
         {% endif %}
+        {% if not isSelf %}
+        <p>
+        Want to work with them? <a href="mailto:{{ profile.user.email }}">Contact them</a>
+        </p>
+        {% endif %}
 
-    <a href="{% url 'auth_password_change' %}">Change Password</a>
 {% endblock %}

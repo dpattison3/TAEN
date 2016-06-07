@@ -11,6 +11,34 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm
 from TAEN_APP.models import Entertaener, Talent
+import math
+from django.db.models import Func, F
+
+# functions used for calculating the distances between users using database level functions
+class Sin(Func):
+    function = 'SIN'
+class Cos(Func):
+    function = 'COS'
+class Acos(Func):
+    function = 'ACOS'
+class Radians(Func):
+    function = 'RADIANS'
+class Round(Func):
+    function = 'ROUND'
+# function for calculating the distances between users - used for databse objects
+def DistanceBetweenObjects(referenceLat, referenceLon):
+    radlat = Radians(referenceLat)
+    radlong = Radians(referenceLon)
+    radflat = Radians(F('latitude'))
+    radflong = Radians(F('longitude'))
+    return Round(3959.0 * Acos(Cos(radlat) * Cos(radflat) * Cos(radflong - radlong) + Sin(radlat) * Sin(radflat)))
+# function for calculating the distances between users - used for single object with relevant values extracted
+def DistanceBetween(referenceLat, referenceLong, compLat, compLon):
+    radlat = math.radians(referenceLat)
+    radlong = math.radians(referenceLong)
+    radflat = math.radians(compLat)
+    radflong = math.radians(compLon)
+    return math.floor(3959.0 * math.acos(math.cos(radlat) * math.cos(radflat) * math.cos(radflong - radlong) + math.sin(radlat) * math.sin(radflat)))
 
 def index(request):
     return render(request, 'index.html', {})
@@ -23,7 +51,9 @@ def termsOfService(request):
 
 @login_required
 def home(request):
-    entertaenerList = Entertaener.objects.exclude(user=request.user)
+    distanceCalculation = DistanceBetweenObjects(request.user.profile.latitude, request.user.profile.longitude)
+    entertaenerList = Entertaener.objects.exclude(user=request.user).annotate(distance=distanceCalculation).order_by('distance')
+
     search = request.GET.get('search')
     talentFilter = request.GET.get('filter')
     if talentFilter:
@@ -31,7 +61,7 @@ def home(request):
     if search:
         entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
 
-    paginator = Paginator(entertaenerList, 3) # show 3 per page
+    paginator = Paginator(entertaenerList, 3)
     page = request.GET.get('page')
     try:
         entertaeners = paginator.page(page)
@@ -45,20 +75,16 @@ def home(request):
 
 @login_required
 def profile(request, username=None):
+    context = {}
     if username != None and username != request.user.username:
         user = User.objects.get(username=username)
-        isSelf = False
-        isContact = request.user.profile.contacts.filter(user=user).exists()
+        context['distance'] = DistanceBetween(request.user.profile.latitude, request.user.profile.longitude, user.profile.latitude, user.profile.longitude)
+        context['isContact'] = request.user.profile.contacts.filter(user=user).exists()
     else:
         user = request.user
-        isSelf = True
-        isContact = False
-    context = {
-            'profile': user.profile,
-            'isSelf': isSelf,
-            'isContact': isContact,
-            'contacts': request.user.profile.contacts,
-    }
+        context['contacts'] = request.user.profile.contacts
+        context['isSelf'] = True
+    context['profile'] = user.profile
     return render(request, 'profile.html', context)
 
 @login_required
@@ -80,6 +106,8 @@ def profileEdit(request):
                 'pitch': request.user.profile.pitch,
                 'picture': request.user.profile.picture,
                 'talent': request.user.profile.talent.all(),
+                'latitude': request.user.profile.latitude,
+                'longitude': request.user.profile.longitude
         }
         userData = {
                 'email': request.user.email,
@@ -101,7 +129,8 @@ def addContact(request, username):
 
 @login_required
 def contacts(request):
-    entertaenerList = request.user.profile.contacts.all()
+    distanceCalculation = DistanceBetweenObjects(request.user.profile.latitude, request.user.profile.longitude)
+    entertaenerList = Entertaener.objects.exclude(user=request.user).annotate(distance=distanceCalculation).order_by('distance')
 
     search = request.GET.get('search')
     talentFilter = request.GET.get('filter')
@@ -110,7 +139,7 @@ def contacts(request):
     if search:
         entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
 
-    paginator = Paginator(entertaenerList, 3) # show 3 per page
+    paginator = Paginator(entertaenerList, 3)
     page = request.GET.get('page')
     try:
         entertaeners = paginator.page(page)

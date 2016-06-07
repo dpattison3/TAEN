@@ -33,6 +33,9 @@ class Entertaener(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     name = models.CharField(max_length = 32, default='anonymous');
 
+    latitude = models.FloatField(default=33.7490)
+    longitude = models.FloatField(default=-84.3880)
+
     talent = models.ManyToManyField(Talent)
     contacts = models.ManyToManyField('self')
 

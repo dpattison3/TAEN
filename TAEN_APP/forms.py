@@ -9,10 +9,12 @@ class EditProfile(forms.ModelForm):
     portfolio = forms.URLField(help_text="Portfolio link:", required=False)
     talent = forms.ModelMultipleChoiceField(queryset=Talent.objects.all(), widget=forms.CheckboxSelectMultiple, help_text='Talents:', required=False)
     picture = forms.ImageField(help_text='Profile picture:', required=False)
-    
+    latitude = forms.FloatField(help_text='latitude', required=False)
+    longitude = forms.FloatField(help_text='longitude', required=False)
+
     class Meta:
         model = Entertaener
-        fields = ['name', 'pitch', 'portfolio', 'picture', 'talent']
+        fields = ['name', 'pitch', 'portfolio', 'picture', 'talent', 'latitude', 'longitude']
 
 class EditUser(forms.ModelForm):
     email = forms.EmailField(help_text='Email:', required=False)

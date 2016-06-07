@@ -27,6 +27,12 @@
           <p>
           <a href="{% url 'profile' username=profile %}">View Profile</a>
           </p>
+          <p>
+          Distance: {{ profile.distance }}
+          </p>
+          <p>
+          Want to work with them? <a href="mailto:{{ profile.user.email }}">Contact them</a>
+          </p>
           <hr/>
     {% endfor %}
 
