@@ -37,7 +37,7 @@ class Entertaener(models.Model):
     longitude = models.FloatField(default=-84.3880)
 
     talent = models.ManyToManyField(Talent)
-    contacts = models.ManyToManyField('self')
+    contacts = models.ManyToManyField('self', symmetrical=False)
 
     pitch = models.CharField(max_length=5000, blank=True, null=True)
 

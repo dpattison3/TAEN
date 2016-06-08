@@ -119,7 +119,7 @@ def profileEdit(request):
 
 @login_required
 def addContact(request, username):
-    if username == None:
+    if username == None or username == request.user.username:
         return Http404("Error cannot add contact without username")
     else:
         userToAdd = User.objects.get(username=username)
@@ -130,7 +130,7 @@ def addContact(request, username):
 @login_required
 def contacts(request):
     distanceCalculation = DistanceBetweenObjects(request.user.profile.latitude, request.user.profile.longitude)
-    entertaenerList = Entertaener.objects.exclude(user=request.user).annotate(distance=distanceCalculation).order_by('distance')
+    entertaenerList = request.user.profile.contacts.all().annotate(distance=distanceCalculation).order_by('distance')
 
     search = request.GET.get('search')
     talentFilter = request.GET.get('filter')
