@@ -24,22 +24,24 @@
         <p>
         Distance: {{ distance }}
         </p>
-        {% endif %}
-        {% if isSelf %}
         <p>
-        Contacts: {{ profile.contacts.all }}
+        Number of times saved: {{ num_contacts }}
         </p>
-        <p>
-        <a href="{% url 'edit_profile' %}">Edit Profile</a>
-        </p>
-        {% elif not isContact %}
+        {% if not isContact %}
         <p>
         <a href="{% url 'add_contact' username=profile %}">Add Contact</a>
         </p>
+        {% else %}
+        <p>
+        <a href="{% url 'remove_contact' username=profile %}">Remove Contact</a>
+        </p>
         {% endif %}
-        {% if not isSelf %}
         <p>
         Want to work with them? <a href="mailto:{{ profile.user.email }}">Contact them</a>
+        </p>
+        {% else %}
+        <p>
+        <a href="{% url 'edit_profile' %}">Edit Profile</a>
         </p>
         {% endif %}
 

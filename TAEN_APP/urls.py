@@ -11,6 +11,7 @@ urlpatterns = [
         url(r'^profile/$', views.profile, name='profileSelf'),
         url(r'^profile/(?P<username>[\w.@+-]+)/$', views.profile, name='profile'),
         url(r'^profile/(?P<username>[\w.@+-]+)/add_contact/$', views.addContact, name='add_contact'),
+        url(r'^profile/(?P<username>[\w.@+-]+)/remove_contact/$', views.removeContact, name='remove_contact'),
         url(r'^contacts/$', views.contacts, name='contacts'),
         url(r'^accounts/activate/(?P<activation_key>\w+)/$', views.ActivateAccount.as_view(), name='activate'),
         url(r'^accounts/register/$', views.Register.as_view(), name='register'),

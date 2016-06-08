@@ -80,9 +80,9 @@ def profile(request, username=None):
         user = User.objects.get(username=username)
         context['distance'] = DistanceBetween(request.user.profile.latitude, request.user.profile.longitude, user.profile.latitude, user.profile.longitude)
         context['isContact'] = request.user.profile.contacts.filter(user=user).exists()
+        context['num_contacts'] = user.profile.contacted.count()
     else:
         user = request.user
-        context['contacts'] = request.user.profile.contacts
         context['isSelf'] = True
     context['profile'] = user.profile
     return render(request, 'profile.html', context)
@@ -112,8 +112,8 @@ def profileEdit(request):
         userData = {
                 'email': request.user.email,
         }
-        profileForm = EditProfile(initial=profileData) #, prefix='pro')
-        userForm = EditUser(initial=userData) #, prefix='usr')
+        profileForm = EditProfile(initial=profileData)
+        userForm = EditUser(initial=userData)
 
     return render(request, 'profileEdit.html', {'profileForm': profileForm, 'userForm': userForm})
 
@@ -125,6 +125,16 @@ def addContact(request, username):
         userToAdd = User.objects.get(username=username)
         userToAdd = Entertaener.objects.get(user=userToAdd)
         request.user.profile.contacts.add(userToAdd)
+        return redirect('profile', username=username)
+
+@login_required
+def removeContact(request, username):
+    if username == None or username == request.user.username:
+        return Http404("Error cannot add contact without username")
+    else:
+        userToRemove = User.objects.get(username=username)
+        userToRemove = Entertaener.objects.get(user=userToRemove)
+        request.user.profile.contacts.remove(userToRemove)
         return redirect('profile', username=username)
 
 @login_required
