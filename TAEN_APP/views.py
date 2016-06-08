@@ -4,6 +4,7 @@ from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
+from django.contrib import auth
 from registration.backends.default.views import ActivationView, RegistrationView
 from registration.models import RegistrationManager, RegistrationProfile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
@@ -167,6 +168,12 @@ class ActivateAccount(ActivationView):
 
 class Register(RegistrationView):
     form_class = RegistrationForm
+
+def login(request, *args, **kwargs):
+    if request.method == 'POST':
+        if not request.POST.get('remember_me'):
+            request.session.set_expiry(0)
+    return auth.views.login(request, *args, **kwargs)
 
 def registrationComplete(request):
     if request.method == 'POST':

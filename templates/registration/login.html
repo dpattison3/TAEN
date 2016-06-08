@@ -6,7 +6,12 @@
         {% csrf_token %}
         {{ form.as_p }}
 
+        <p>
+        Be remembered: <input type="checkbox" name="remember_me" />
+        </p>
+        <p>
         <input type="submit" value="Log in" />
+        </p>
         <input type="hidden" name="next" value="{{ next }}" />
     </form>
     <p>
