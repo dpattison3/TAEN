@@ -19,13 +19,16 @@
           Pitch: {{ profile.pitch }}
           </p>
           <p>
-          Portfolio: {{ profile.portfolio.all }}
+          Portfolio:
           {% for link in profile.portfolioLink.all %}
               <a href="{{ link.link }}" target='_blank'>{{ link.link }}</a>
           {% endfor %}
           </p>
           <p>
-          Talents: {{ profile.talent.all }}
+          Talents:
+          {% for talent in profile.talent.all %}
+              {{ talent }}
+          {% endfor %}
           <p>
           <p>
           <a href="{% url 'profile' username=profile %}">View Profile</a>

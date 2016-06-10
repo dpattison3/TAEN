@@ -21,7 +21,10 @@
         {% endfor %}
         </p>
         <p>
-        Talents: {{ profile.talent.all }}
+        Talents:
+        {% for talent in profile.talent.all %}
+            {{ talent }}
+        {% endfor %}
         </p>
         {% if not isSelf %}
         <p>
