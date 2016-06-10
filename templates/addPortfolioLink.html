@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block body_block %}
+    <h1>Add a portfolio link</h1>
+
+    <form method='post' action='add_portfolio_link'>
+        {% csrf_token %}
+
+        {{ portfolioForm.entertaener.errors }}
+        {{ portfolioForm.entertaener }}
+
+        {{ portfolioForm.link.errors }}
+        Link to add:
+        {{ portfolioForm.link }}
+
+        <input type='submit' value='update' />
+
+    </form>
+
+{% endblock %}

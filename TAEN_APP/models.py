@@ -52,3 +52,7 @@ class Entertaener(models.Model):
             Entertaener.objects.create(user=instance)
 
     post_save.connect(create_user_profile, sender=User)
+
+class PortfolioLink(models.Model):
+    entertaener = models.ForeignKey(Entertaener, on_delete=models.CASCADE, related_name='portfolioLink')
+    link = models.URLField()

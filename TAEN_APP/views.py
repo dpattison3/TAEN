@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
@@ -10,8 +11,8 @@ from registration.models import RegistrationManager, RegistrationProfile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm
-from TAEN_APP.models import Entertaener, Talent
+from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm, EditPortfolio
+from TAEN_APP.models import Entertaener, Talent, PortfolioLink
 import math
 from django.db.models import Func, F
 
@@ -91,7 +92,7 @@ def profile(request, username=None):
 @login_required
 def profileEdit(request):
     if request.method == 'POST':
-        profileForm = EditProfile(request.POST,request.FILES or None, instance=request.user.profile)
+        profileForm = EditProfile(request.POST, request.FILES or None, instance=request.user.profile)
         userForm = EditUser(request.POST, instance=request.user)
 
         if profileForm.is_valid() and userForm.is_valid():
@@ -116,7 +117,10 @@ def profileEdit(request):
         profileForm = EditProfile(initial=profileData)
         userForm = EditUser(initial=userData)
 
-    return render(request, 'profileEdit.html', {'profileForm': profileForm, 'userForm': userForm})
+    return render(request, 'profileEdit.html', {
+        'profileForm': profileForm,
+        'userForm': userForm,
+        'portfolioLinks': request.user.profile.portfolioLink})
 
 @login_required
 def addContact(request, username):
@@ -161,6 +165,26 @@ def contacts(request):
 
     talentList = Talent.objects.all()
     return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})
+
+def addPortfolioLink(request):
+    if request.method == 'POST':
+        editPortfolioForm = EditPortfolio(request.POST)
+        if editPortfolioForm.is_valid():
+            editPortfolioForm.save(commit=True)
+            return redirect('edit_profile')
+        else:
+            print(editPortfolioForm.errors)
+    else:
+        initialData = {
+                'entertaener': request.user.profile
+        }
+        editPortfolioForm = EditPortfolio(initial=initialData)
+    return render(request, 'addPortfolioLink.html', {'portfolioForm': editPortfolioForm})
+
+def removePortfolioLink(request, portfolioLinkId):
+    portfolioLink = get_object_or_404(PortfolioLink, pk=portfolioLinkId)
+    portfolioLink.delete()
+    return redirect('edit_profile')
 
 class ActivateAccount(ActivationView):
     def get_success_url(self, user):
