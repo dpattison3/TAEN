@@ -16,25 +16,19 @@
           {% endif %}
           </p>
           <p>
-          Pitch: {{ profile.pitch }}
-          </p>
-          <p>
-          Portfolio:
-          {% for link in profile.portfolioLink.all %}
-              <a href="{{ link.link }}" target='_blank'>{{ link.link }}</a>
-          {% endfor %}
-          </p>
-          <p>
-          Talents:
+          {% if profile.talent.all %} Talents: {% endif %}
           {% for talent in profile.talent.all %}
               {{ talent }}
           {% endfor %}
+          </p>
           <p>
-          <p>
-          <a href="{% url 'profile' username=profile %}">View Profile</a>
+          {% if profile.specialization %}Specialization: {{ profile.specialization }}{% endif %}
           </p>
           <p>
           Distance: {{ profile.distance }}
+          </p>
+          <p>
+          <a href="{% url 'profile' username=profile %}">View Profile</a>
           </p>
           <p>
           Want to work with them? <a href="mailto:{{ profile.user.email }}">Contact them</a>
@@ -46,11 +40,6 @@
         {% if profiles.has_previous %}
         <a href="?page={{ profiles.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">previous</a>
         {% endif %}
-
-        <span>
-            Page {{ profiles.number }} of {{ profiles.paginator.num_pages }}
-        </span>
-
         {% if profiles.has_next %}
         <a href="?page={{ profiles.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">next</a>
         {% endif %}

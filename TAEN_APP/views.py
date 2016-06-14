@@ -109,7 +109,9 @@ def profileEdit(request):
                 'picture': request.user.profile.picture,
                 'talent': request.user.profile.talent.all(),
                 'latitude': request.user.profile.latitude,
-                'longitude': request.user.profile.longitude
+                'longitude': request.user.profile.longitude,
+                'equipment': request.user.profile.equipment,
+                'specialization': request.user.profile.specialization
         }
         userData = {
                 'email': request.user.email,

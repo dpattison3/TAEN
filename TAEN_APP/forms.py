@@ -10,10 +10,12 @@ class EditProfile(forms.ModelForm):
     picture = forms.ImageField(help_text='Profile picture:', required=False)
     latitude = forms.FloatField(help_text='latitude', required=False)
     longitude = forms.FloatField(help_text='longitude', required=False)
+    specialization = forms.CharField(help_text='specialization', required=False)
+    equipment = forms.CharField(help_text='equipment', required=False)
 
     class Meta:
         model = Entertaener
-        fields = ['name', 'pitch', 'picture', 'talent', 'latitude', 'longitude']
+        fields = ['name', 'pitch', 'picture', 'talent', 'latitude', 'longitude', 'specialization', 'equipment']
 
 class EditUser(forms.ModelForm):
     email = forms.EmailField(help_text='Email:', required=False)

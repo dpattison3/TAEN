@@ -21,10 +21,16 @@
         {% endfor %}
         </p>
         <p>
-        Talents:
+        {% if profile.talent.all %} Talents: {% endif %}
         {% for talent in profile.talent.all %}
             {{ talent }}
         {% endfor %}
+        </p>
+        <p>
+        {% if profile.specialization %}Specialization: {{ profile.specialization }}{% endif %}
+        </p>
+        <p>
+        {% if profile.equipment %}Tools of the trade: {{ profile.equipment }}{% endif %}
         </p>
         {% if not isSelf %}
         <p>
