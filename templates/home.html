@@ -1,7 +1,7 @@
-{% extends 'content.html' %}
+{% extends 'base.html' %}
 {% load staticfiles %}
 
-{% block content %}
+{% block body_block %}
     <hr/>
     {% for talent in talents %}
     <a href="?filter={{ talent }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ talent }}</a>
@@ -12,7 +12,7 @@
           {% if profile.picture %}
               <img src="{{ profile.picture.url }}" />
           {% else %}
-              <img src="{% static 'images/defaultProfile.png' %}" />
+              <img src="{% static 'defaultProfile.png' %}" />
           {% endif %}
           </p>
           <p>

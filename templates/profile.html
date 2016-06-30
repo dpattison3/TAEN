@@ -8,14 +8,14 @@
         {% if profile.picture %}
             <img src={{ profile.picture.url }} />
         {% else %}
-            <img src="{% static 'images/defaultProfile.png' %}" />
+            <img src="{% static 'defaultProfile.png' %}" />
         {% endif %}
         </p>
         <p>
         Pitch: {{ profile.pitch }}
         </p>
         <p>
-        Portfolio: 
+        Portfolio:
         {% for link in profile.portfolioLink.all %}
             <a href="{{ link.link }}  target='_blank'">{{ link.link }}</a>
         {% endfor %}

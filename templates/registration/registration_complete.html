@@ -1,29 +1,55 @@
-{% extends 'base.html' %}
+{% extends 'base_index.html' %}
+{% load static %}
 
 {% block body_block %}
-<h1>Registration Complete</h1>
-    <p>
-    Check your email to complete registration.
-    </p>
-    <p>
-    Not see it?
-    </p>
-    <p>
-    <form method='post' action='.'>
-        {% csrf_token %}
-        <p>
-        Enter the email you used to resend the activation code, or enter a new email
-        and your username if you'd like it sent to another email.
-        <p>
-        Email: <input type='text' name='email' />
-        </p>
-        <p>
-        username: <input type='text' name='username' />
-        </p>
-        <p>
-        <input type='submit' value='resend' />
-        </p>
-    </form>
-    </p>
 
+<div class="container">
+    <div class="top-pad-medium">
+        <div class="row">
+            <a href="">
+                <img src="{% static 'TAEN-Logo.png' %}" style="height:90px;" class="img-responsive center" />
+            </a>
+        </div>
+    </div>
+    <div class="top-pad-small">
+        <h3>Welcom to TAEN!</h3>
+        <p>
+            Check your email to complete registration.
+        </p>
+        <p>
+            Not see it?
+        </p>
+        <div class="col-xs-10 col-xs-offset-1 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3 top-pad-small">
+            <p>
+                Enter the email you used to resend the activation code, or enter a new email
+                and your username if you'd like it sent to another email.
+            </p>
+        </div>
+
+        <div class="row top-pad-small"></div>
+
+        <form method="post" action="." class="form-horizontal">
+            {% csrf_token %}
+
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">
+                    <input type="email" name="email" class="form-control" placeholder="email address" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">
+                    <input type="text" name="username" maxlength="30" class="form-control" placeholder="username" />
+                </div>
+            </div>
+
+            <div class="row top-pad-xs"></div>
+            <div class="form-group top-pad-xs">
+                <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">
+                    <button type="submit" class="btn btn-block accountsButton">Resend</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 {% endblock %}

@@ -1,5 +1,33 @@
-{% extends 'base.html' %}
+{% extends 'base_index.html' %}
+{% load staticfiles %}
 
 {% block body_block %}
-    <h1>Welcome to TAEN!</h1>
+
+    <div class="container">
+        <div class="top-pad-small">
+            <div class="row">
+                <div class="col-sm-3">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'TAEN-Logo.png' %}" style="height:90px;" class="img-responsive center" />
+                    </a>
+                </div>
+            </div>
+            <div class="row top-pad-large bottom-pad-small">
+                <div class="text-large-white">
+                    <p>Turning talent into entertainment</p>
+                    <p>Start a project now</p>
+                </div>
+            </div>
+            <div class="row">
+                <a href="{% url 'home' %}" role="button" class="btn enterButton">
+                    ENTER<b>TAEN</b>
+                </a>
+            </div>
+
+            <div class="row top-pad-small">
+                <a href="{% url 'about' %}" class="text-small-white">Learn more</a>
+            </div>
+        </div>
+    </div>
+
 {% endblock %}

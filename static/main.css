@@ -1,0 +1,151 @@
+/* This is my CSS file */
+
+.fullbackground{
+    background: url("../images/cityBackground.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
+    height: 100%;
+    background-color: #000;
+    color: #fff;
+    text-align: center;
+    text-shadow: 0 1px 3px rgba(0,0,0,.5);
+}
+
+.enterButton{
+    background: #e77367;
+    color: #ffffff;
+    text-shadow: none;
+
+    padding: 18px 28px;
+    font-size: 22px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+.enterButton:hover{
+    background: #E35D4F;
+    color: #ffffff;
+}
+
+.loginButton{
+    background: #e77367;
+    color: #ffffff;
+    text-shadow: none;
+
+    font-size: 20px;
+    line-height: normal;
+    -webkit-border-radius: 8px;
+       -moz-border-radius: 8px;
+            border-radius: 8px;
+}
+
+.loginButton:hover{
+    background: #E35D4F;
+    color: #ffffff;
+}
+
+.login-checkbox{
+    background-color: transparent;
+    float: left;
+    padding-left: 10px;
+}
+
+.top-pad-large{
+    padding-top: 75px;
+}
+
+.top-pad-small{
+    padding-top: 25px;
+}
+
+.top-pad-xs{
+    padding-top: 10px;
+}
+
+.bottom-pad-large{
+    padding-bottom: 75px;
+}
+
+.bottom-pad-small{
+    padding-bottom: 25px;
+}
+
+.text-large-white{
+    font-size: 22px;
+}
+
+.text-small-white{
+    font-size:14px;
+    color: #fff;
+}
+
+.center{
+    margin:0 auto;
+}
+
+.site-wrapper{
+    padding:10px;
+}
+
+.filter-bar{
+	height: 40px;
+	background-color: #878787
+}
+
+.profile-preview {
+    float: left;
+    height: 125px;
+    margin: 5px 0px 5px 0px;
+    outline: 5px solid white;
+    background: #e77367;
+}
+
+.doo {
+	background: #e77367 ;
+	height: 50px;
+	margin: 5px 2px 5px 2px;
+}
+
+.too {
+	background: #333333;
+}
+
+.site-footer {
+	background-color: #242424;
+	color: white;
+}
+
+li{
+	list-style: none;
+	text-decoration: none;
+
+}
+
+a{
+	text-decoration: none;
+}
+
+.profile-preview-content {
+	padding-top: 15px;
+	padding-left: 40px;
+	color: white;
+}
+
+#profile-distance {
+	border-left: solid;
+	border-color: #fff;
+	height:125px;
+	padding-left: 30px;
+
+}
+
+.profile-image {
+	height:80px;
+	margin-top: 20px;
+	margin-left: 5px;
+}
