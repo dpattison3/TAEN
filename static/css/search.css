@@ -1,7 +1,7 @@
 .search-button{
     background-color: transparent;
     color: #fff;
-    font-size: 2.5em;
+    font-size: 2em;
     outline-style: none;
     padding-right: .125em;
     padding-bottom: .1em;
@@ -15,22 +15,22 @@
     float: right;
     margin: 0px;
     margin-left: -.4em;
-    margin-bottom: -.25em;
+    margin-bottom: -.28em;
 }
 
 .search-icon{
     color: inherit;
     padding: 0px;
-    font-size: 2.5em;
+    font-size: 2em;
 }
 
 .search-text{
-    height: 2.48em;
+    height: 2.0424em;
     padding: 0em;
-    margin-right: -.23em;
+    margin-right: -.5em;
     margin-left: 0px;
     margin-top: 0px;
-    margin-bottom: -.58em;
+    margin-bottom: -.55em;
     border-style: none;
     outline-style: none;
     text-indent: 1em;
@@ -42,5 +42,5 @@
     float: right;
     font-size: 1.2em;
     max-width: 0em;
-    transition: max-width .3s ease .2s;
+    transition: all .3s ease .2s;
 }

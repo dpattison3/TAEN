@@ -6,9 +6,13 @@ window.onload = function() {
 
     // check if there is an existing search request and populate the text field
     var url = window.location.href;
-    var index = url.indexOf("search=");
-    if (index != -1) {
-        var searchQuery = url.substring(index + 7, url.length);
+    var searchIndex = url.indexOf("search=");
+    if (searchIndex != -1) {
+        var searchQuery = url.substring(searchIndex + 7, url.length);
+        var ampIndex = searchQuery.indexOf("&");
+        if (ampIndex != -1) {
+            searchQuery = searchQuery.substring(0, ampIndex);
+        }
         openSearchInput();
         searchText.value = searchQuery;
     }
@@ -50,12 +54,13 @@ window.onload = function() {
     }
 
     function openSearchInput() {
-        searchText.style.maxWidth = "20em";
+        searchText.style.maxWidth = "15em";
         searchText.style.paddingTop = ".1em";
         searchText.style.paddingBottom = ".1em";
+        searchText.style.paddingRight = ".9em";
         searchText.select();
 
-        searchIcon.style.transition = "background-color .2s ease 0s";
+        searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
         searchIcon.style.backgroundColor = "#fff";
         searchIcon.style.color = "#818181";
 

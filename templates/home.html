@@ -1,47 +1,129 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
+{% load url_replace %}
 
 {% block body_block %}
-    <hr/>
-    {% for talent in talents %}
-    <a href="?filter={{ talent }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ talent }}</a>
-    {% endfor %}
-    {% for profile in profiles %}
-      <h3>Hello I am {{ profile.name }}</h3>
-          <p>
-          {% if profile.picture %}
-              <img src="{{ profile.picture.url }}" />
-          {% else %}
-              <img src="{% static 'defaultProfile.png' %}" />
-          {% endif %}
-          </p>
-          <p>
-          {% if profile.talent.all %} Talents: {% endif %}
-          {% for talent in profile.talent.all %}
-              {{ talent }}
-          {% endfor %}
-          </p>
-          <p>
-          {% if profile.specialization %}Specialization: {{ profile.specialization }}{% endif %}
-          </p>
-          <p>
-          Distance: {{ profile.distance }}
-          </p>
-          <p>
-          <a href="{% url 'profile' username=profile %}">View Profile</a>
-          </p>
-          <p>
-          Want to work with them? <a href="mailto:{{ profile.user.email }}">Contact them</a>
-          </p>
-          <hr/>
-    {% endfor %}
 
-    <span>
-        {% if profiles.has_previous %}
-        <a href="?page={{ profiles.previous_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">previous</a>
-        {% endif %}
-        {% if profiles.has_next %}
-        <a href="?page={{ profiles.next_page_number }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">next</a>
-        {% endif %}
-    </span>
+    <!-- talent filtering tabs -->
+    <div class="bottom-pad-small">
+        <div class="collapse navbar-collapse">
+            <ul class="nav nav-tabs">
+                {% if request.GET.filter %}
+                    <li role="presentation"><a href="{{ request.path }}">All</a></li>
+                {% else %}
+                    <li role="presentation" class="active"><a href="{{ request.path }}">All</a></li>
+                {% endif %}
+                {% for talent in talents %}
+                    {% if request.GET.filter == talent|stringformat:"s" %}
+                        <li role="presentation" class="active">
+                            <a href="?filter={{ talent }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ talent }}</a>
+                        </li>
+                    {% else %}
+                        <li role="presentation">
+                            <a href="?filter={{ talent }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ talent }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="row">
+            <div class="navbar-toggle" data-toggle="collapse">
+                <div class="dropdown custom-dropdown">
+                    <button class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        Filter by talent <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="">All</a></li>
+                        {% for talent in talents %}
+                        <li><a href="?filter={{ talent }}{% if request.GET.search %}&search={{ request.GET.search }}{% endif %}">{{ talent }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- profile content -->
+    <div class="row">
+        {% for profile in profiles %}
+            <a href="{% url 'profile' username=profile %}">
+                <div class="col-xs-6 col-md-4 col-lg-3 profile-preview negative-bottom-margin" >
+                    <div class="row top-pad-xs">
+                        {% if profile.picture %}
+                            <img src="{{ profile.picture.url }}" class="profile-image center-block" />
+                        {% else %}
+                            <img src="{% static 'defaultProfile.png' %}" class="profile-image center-block" />
+                        {% endif %}
+                    </div>
+                    <div class="row profile-preview-content bottom-pad-xs" style="padding-bottom: 10px;">
+                        <h4>{{ profile.name }} {% if profile.age %}, {{ profile.age }} {% endif %}</h4>
+                        {% if profile.talent.all %}
+                            <p>
+                                {% for talent in profile.talent.all %}
+                                    {{ talent }}
+                                {% endfor %}
+                            </p>
+                        {% else %}
+                            <p>No talent specified</p>
+                        {% endif %}
+                        <p>{{ profile.distance }} miles away</p>
+                    </div>
+                </div>
+            </a>
+        {% endfor %}
+    </div>
+
+    <!-- pagination -->
+    <nav style="text-align: center;">
+        <ul class="pagination">
+            {% if profiles.has_previous %}
+                <li>
+                    <a href="?{% urlReplace request 'page' profiles.previous_page_number %}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <a href="" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+            {% for page in pages %}
+                {% if page.0 == currentPage %}
+                    <li class="active">
+                        <a href="?{% urlReplace request 'page' page.0 %}">
+                            {{ page.0 }}<span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                {% elif page.1 %}
+                    <li>
+                        <a href="?{% urlReplace request 'page' page.0 %}">
+                            {{ page.0 }}<span class="sr-only"></span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="disabled">
+                        <a href="?{% urlReplace request 'page' page.0 %}">
+                            {{ page.0 }}<span class="sr-only"></span>
+                        </a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+            {% if profiles.has_next %}
+                <li>
+                    <a href="?{% urlReplace request 'page' profiles.next_page_number %}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% else %}
+                <li class="disabled">
+                    <a href="" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+    </nav>
+
 {% endblock %}

@@ -8,23 +8,23 @@ def imgUploadLocation(instance, filename):
     return "%s/%s" %(instance.id, filename)
 
 class Talent(models.Model):
-    Recording = 0
+    RecordingEngineer = 0
     Artist = 1
     Producer = 2
-    Mixer = 3
+    SoundMixer = 3
     Talent_Choices = [
-            (Recording, 'Recording'),
             (Artist, 'Artist'),
             (Producer, 'Producer'),
-            (Mixer, 'Mixer'),
+            (RecordingEngineer, 'Recording Engineer'),
+            (SoundMixer, 'Sound Mixer'),
     ]
     Talent_Dictionary = {
-            'Recording': Recording,
             'Artist': Artist,
             'Producer': Producer,
-            'Mixer': Mixer,
+            'Recording Engineer': RecordingEngineer,
+            'Sound Mixer': SoundMixer,
     }
-    talent = models.IntegerField(choices=Talent_Choices, null=True, blank=True)
+    talent = models.IntegerField(choices=Talent_Choices)
 
     def __iter__(self):
         return iter(self.Talent_Choices)

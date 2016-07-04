@@ -33,17 +33,22 @@
 }
 
 .nav-icons{
-    font-size: 2.5em;
+    font-size: 2em;
     color: #fff;
+    padding: 0px;
+    margin: 0px;
+    text-decoration: none;
     background-color: transparent;
 }
 
 .nav-icons:hover{
     color: #818181;
+    text-decoration: none;
 }
 
 .nav-icons:active{
     color: #5a5a5a;
+    text-decoration: none;
 }
 
 .accountsButton{
@@ -112,35 +117,22 @@
     text-align: center;
 }
 
-.center{
-    margin:0 auto;
-}
-
-.site-wrapper{
-    padding:10px;
-}
-
-.filter-bar{
-	height: 40px;
-	background-color: #878787
-}
-
 .profile-preview {
-    float: left;
-    height: 125px;
+    height: 100%;
     margin: 5px 0px 5px 0px;
-    outline: 5px solid white;
+    outline: 1px solid #dbdbdb;
+    background: transparent;
+    color: #4d4d4d;
+}
+
+.profile-preview:hover{
     background: #e77367;
+    color: #fff;
 }
 
-.doo {
-	background: #e77367 ;
-	height: 50px;
-	margin: 5px 2px 5px 2px;
-}
-
-.too {
-	background: #333333;
+.profile-preview:active{
+    background: #E35D4F;
+    color: #fff;
 }
 
 .site-footer {
@@ -148,32 +140,48 @@
 	color: white;
 }
 
-li{
-	list-style: none;
-	text-decoration: none;
-
+.negative-bottom-margin{
+    margin-bottom: -3px !important;
+    margin-right: 0px !important;
 }
 
-a{
-	text-decoration: none;
+.custom-dropdown{
+    width: 20em;
+    text-align: center;
+    margin-top: -2em;
+    margin-bottom: -2em;
+    padding-bottom: -5em;
+
 }
 
 .profile-preview-content {
-	padding-top: 15px;
-	padding-left: 40px;
-	color: white;
-}
-
-#profile-distance {
-	border-left: solid;
-	border-color: #fff;
-	height:125px;
-	padding-left: 30px;
-
+	padding-top: 0px;
+	color: inherit;
+    text-align: center;
 }
 
 .profile-image {
-	height:80px;
-	margin-top: 20px;
-	margin-left: 5px;
+	height:100px;
+    width: 100px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    margin: 0 auto;
+}
+
+ul.pagination li.active a{
+    background-color: #e77367;
+    border-color: #e77367;
+}
+
+ul.pagination li.active a:hover{
+    background-color: #E35D4F;
+    border-color: #E35D4F;
+}
+
+ul.pagination li a{
+    color: #e77367;
+}
+
+ul.pagination li a:hover{
+    color: #E35D4F;
 }

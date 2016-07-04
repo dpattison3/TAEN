@@ -42,6 +42,40 @@ def DistanceBetween(referenceLat, referenceLong, compLat, compLon):
     radflong = math.radians(compLon)
     return math.floor(3959.0 * math.acos(math.cos(radlat) * math.cos(radflat) * math.cos(radflong - radlong) + math.sin(radlat) * math.sin(radflat)))
 
+def paginationPageList(pageRange, currentPage, numPages):
+    paginatorList = [(currentPage, True),]
+
+    if ((currentPage - 2) in pageRange):
+        paginatorList.append(((currentPage - 2), True))
+    elif ((currentPage + 3) in pageRange):
+        paginatorList.append(((currentPage + 3), True))
+    else:
+        paginatorList.append(((currentPage + 3), False))
+
+    if ((currentPage - 1) in pageRange):
+        paginatorList.append(((currentPage - 1), True))
+    elif ((currentPage + 4) in pageRange):
+        paginatorList.append(((currentPage + 4), True))
+    else:
+        paginatorList.append(((currentPage + 4), False))
+
+    if ((currentPage + 1) in pageRange):
+        paginatorList.append(((currentPage + 1), True))
+    elif (numPages < 5):
+        paginatorList.append(((currentPage + 1), False))
+    else:
+        paginatorList.append(((currentPage - 4), True))
+
+    if ((currentPage + 2) in pageRange):
+        paginatorList.append(((currentPage + 2), True))
+    elif (numPages < 5):
+        paginatorList.append(((currentPage + 2), False))
+    else:
+        paginatorList.append(((currentPage - 3), True))
+
+    paginatorList.sort(key=lambda x: x[0])
+    return paginatorList
+
 def index(request):
     return render(request, 'index.html', {})
 
@@ -63,7 +97,7 @@ def home(request):
     if search:
         entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
 
-    paginator = Paginator(entertaenerList, 3)
+    paginator = Paginator(entertaenerList, 1)
     page = request.GET.get('page')
     try:
         entertaeners = paginator.page(page)
@@ -72,8 +106,13 @@ def home(request):
     except EmptyPage:
         entertaeners = paginator.page(paginator.num_pages)
 
+    paginatorList = paginationPageList(paginator.page_range, entertaeners.number, paginator.num_pages)
     talentList = Talent.objects.all()
-    return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})
+    return render(request, 'home.html', {
+            'profiles': entertaeners,
+            'talents': talentList,
+            'pages': paginatorList,
+            'currentPage': entertaeners.number})
 
 @login_required
 def profile(request, username=None):
