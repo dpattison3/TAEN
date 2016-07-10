@@ -32,7 +32,7 @@
                     <div style="margin-left: 1.5%; margin-right: 1.5%;">
                         <div class="navbar-header pull-left">
                             <a href="{% url 'home' %}" title="home">
-                                <img src="{% static 'images/TAEN_Logo1.png' %}" style="height:35px; padding-top:.75em;" alt="TAEN" />
+                                <img src="{% static 'images/TAEN_Logo.png' %}" style="height:35px; padding-top:.75em;" alt="TAEN" />
                             </a>
                         </div>
                         <div class="nav navbar-header pull-right" style="padding-top: .3em;">
@@ -64,7 +64,7 @@
 
             <footer class="footer-distributed">
 			    <div class="footer-left">
-				    <img src="{% static 'images/TAEN_Logo1.png' %}" style="height:70px; padding-top:.75em;" alt="TAEN" />
+				    <img src="{% static 'images/TAEN_Logo.png' %}" style="height:70px; padding-top:.75em;" alt="TAEN" />
 				    <p class="footer-links">
     					<a href="{% url 'home' %}">Home</a>
     					·
@@ -111,13 +111,7 @@
 
         </div>
 
-        <!-- jQuery -->
-        <script src="{% static 'js/jquery.js' %}"></script>
-
-        <!-- Bootstrap Core JavaScript -->
-        <script src="{% static 'js/bootstrap.min.js' %}"></script>
-
-        <script src="{% static 'js/search.js' %}"></script>
+        {% block js_src %}{% endblock %}
 
     </body>
 </html>

@@ -151,7 +151,6 @@
     margin-top: -2em;
     margin-bottom: -2em;
     padding-bottom: -5em;
-
 }
 
 .profile-preview-content {
@@ -166,6 +165,11 @@
     border-radius: 50%;
     border: 5px solid #fff;
     margin: 0 auto;
+}
+
+.remove-portfolio-link{
+    color: red;
+    font-size: 1.5em;
 }
 
 ul.pagination li.active a{

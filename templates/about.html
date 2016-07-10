@@ -6,3 +6,9 @@
     </p>
     <a href="{% url 'home' %}">ENTERTAEN</a>
 {% endblock %}
+
+{% block extra_js %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/search.js' %}"></script>
+{% endblock %}

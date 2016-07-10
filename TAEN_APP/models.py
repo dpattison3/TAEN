@@ -62,3 +62,6 @@ class Entertaener(models.Model):
 class PortfolioLink(models.Model):
     entertaener = models.ForeignKey(Entertaener, on_delete=models.CASCADE, related_name='portfolioLink')
     link = models.URLField()
+
+    def __str__(self):
+        return self.link

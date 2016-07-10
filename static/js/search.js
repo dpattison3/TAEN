@@ -1,8 +1,15 @@
-window.onload = function() {
-    var searchText = document.getElementById("searchText");
-    var searchButtonLabel = document.getElementById("searchButtonLabel");
-    var searchIcon = document.getElementById("searchIcon");
-    var isSearchOpen = false;
+window.onload = search;
+
+var searchText;
+var searchButtonLabel;
+var searchIcon;
+var isSearchOpen;
+
+function search() {
+    searchText = document.getElementById("searchText");
+    searchButtonLabel = document.getElementById("searchButtonLabel");
+    searchIcon = document.getElementById("searchIcon");
+    isSearchOpen = false;
 
     // check if there is an existing search request and populate the text field
     var url = window.location.href;
@@ -16,7 +23,6 @@ window.onload = function() {
         openSearchInput();
         searchText.value = searchQuery;
     }
-
 
     document.onclick = function(obj) {
         if (searchButtonLabel.contains(obj.target) && isSearchOpen) {
@@ -52,30 +58,30 @@ window.onload = function() {
             searchIcon.style.color = "#5a5a5a";
         }
     }
+}
 
-    function openSearchInput() {
-        searchText.style.maxWidth = "15em";
-        searchText.style.paddingTop = ".1em";
-        searchText.style.paddingBottom = ".1em";
-        searchText.style.paddingRight = ".9em";
-        searchText.select();
+function openSearchInput() {
+    searchText.style.maxWidth = "15em";
+    searchText.style.paddingTop = ".1em";
+    searchText.style.paddingBottom = ".1em";
+    searchText.style.paddingRight = ".9em";
+    searchText.select();
 
-        searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
-        searchIcon.style.backgroundColor = "#fff";
-        searchIcon.style.color = "#818181";
+    searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
+    searchIcon.style.backgroundColor = "#fff";
+    searchIcon.style.color = "#818181";
 
-        isSearchOpen = true;
-    }
+    isSearchOpen = true;
+}
 
-    function closeSearchInput() {
-        searchText.style.maxWidth = "0em";
-        searchText.style.padding = "0em";
+function closeSearchInput() {
+    searchText.style.maxWidth = "0em";
+    searchText.style.padding = "0em";
 
-        searchIcon.style.transition = "background-color .2s ease .5s, color .2s ease .5s";
-        searchIcon.style.paddingLeft = ".125em";
-        searchIcon.style.backgroundColor = "transparent";
-        searchIcon.style.color = "#fff";
+    searchIcon.style.transition = "background-color .2s ease .5s, color .2s ease .5s";
+    searchIcon.style.paddingLeft = ".125em";
+    searchIcon.style.backgroundColor = "transparent";
+    searchIcon.style.color = "#fff";
 
-        isSearchOpen = false;
-    }
+    isSearchOpen = false;
 }

@@ -4,17 +4,19 @@
 {% block body_block %}
 
     <div class="container">
-        <div class="top-pad-medium">
+        <div class="top-pad-small">
             <div class="row">
-                <a href="">
-                    <img src="{% static 'TAEN-Logo.png' %}" style="height:90px;" class="img-responsive center" />
-                </a>
+                <div class="col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-4">
+                    <a href="{% url 'home' %}">
+                        <img src="{% static 'images/TAEN_Logo.png' %}" style="height:90px;" class="img-responsive center-block" />
+                    </a>
+                </div>
             </div>
         </div>
         <div class="top-pad-medium">
             <form method="post" action="." class="form-horizontal">
                 {% csrf_token %}
-                
+
                 {{ form.username.errors }}
                 <div class="form-group">
                     <div class="col-sm-offset-4 col-sm-4 col-xs-offset-2 col-xs-8">

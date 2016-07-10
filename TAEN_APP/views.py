@@ -4,6 +4,7 @@ from django.shortcuts import get_object_or_404
 from django.contrib.sites.shortcuts import get_current_site
 from django.http import HttpResponse
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.contrib.auth.models import User
 from django.contrib import auth
 from registration.backends.default.views import ActivationView, RegistrationView
@@ -15,6 +16,7 @@ from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm, EditPortfoli
 from TAEN_APP.models import Entertaener, Talent, PortfolioLink
 import math
 from django.db.models import Func, F
+import json
 
 # functions used for calculating the distances between users using database level functions
 class Sin(Func):
@@ -207,26 +209,6 @@ def contacts(request):
     talentList = Talent.objects.all()
     return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})
 
-def addPortfolioLink(request):
-    if request.method == 'POST':
-        editPortfolioForm = EditPortfolio(request.POST)
-        if editPortfolioForm.is_valid():
-            editPortfolioForm.save(commit=True)
-            return redirect('edit_profile')
-        else:
-            print(editPortfolioForm.errors)
-    else:
-        initialData = {
-                'entertaener': request.user.profile
-        }
-        editPortfolioForm = EditPortfolio(initial=initialData)
-    return render(request, 'addPortfolioLink.html', {'portfolioForm': editPortfolioForm})
-
-def removePortfolioLink(request, portfolioLinkId):
-    portfolioLink = get_object_or_404(PortfolioLink, pk=portfolioLinkId)
-    portfolioLink.delete()
-    return redirect('edit_profile')
-
 class ActivateAccount(ActivationView):
     def get_success_url(self, user):
         return '/profile/'
@@ -261,3 +243,42 @@ def registrationComplete(request):
     except ObjectDoesNotExist:
         pass
     return redirect('registration_complete')
+
+@login_required
+@require_POST
+def updatePortfolio(request):
+    if request.method == 'POST':
+        deletedLinks = request.POST.getlist('deleted')
+        numberOfLinksToAdd = request.POST.get('numberOfLinksToAdd')
+        newLinks = request.POST.getlist('newLinks')
+        if deletedLinks and len(deletedLinks):
+            for link in deletedLinks:
+                # exclude last index in string because the url is often stored without a back-slash
+                portfolioObject = request.user.profile.portfolioLink.filter(link__icontains=link[:-1])
+                portfolioObject.delete()
+        if numberOfLinksToAdd and newLinks and numberOfLinksToAdd > 1:
+            for link in newLinks:
+                link = urlValidation(link)
+                if link:
+                    newLinkObject = PortfolioLink(link=link, entertaener=request.user.profile)
+                    newLinkObject.save()
+
+        responseData = {}
+        responseData['results'] = 'success'
+        return HttpResponse(
+                json.dumps(responseData),
+                content_type = 'application/json'
+        )
+    else:
+        return HttpResponse(
+                json.dumps({'error': 'an error has occurred'}),
+                content_type = 'application/json'
+        )
+
+def urlValidation(url):
+    if (len(url) > 23) and ((url[:24] == 'https://www.youtube.com/') or (url[:23] == 'http://www.youtube.com/')):
+        return url
+    elif (len(url) > 15) and (url[:16] == 'www.youtube.com/'):
+        return 'https://' + url
+    elif (len(url) > 11) and (url[:12] == 'youtube.com/'):
+        return 'https://www.' + url

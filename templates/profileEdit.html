@@ -1,9 +1,10 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body_block %}
     <h1>Edit your profile</h1>
 
-    <form method="post" action="/edit_profile/" enctype='multipart/form-data'>
+    <form id="editProfile" method="post" action="." enctype='multipart/form-data'>
         {% csrf_token %}
 
         {% for hidden in profileForm.hidden_fields %}
@@ -18,15 +19,20 @@
             </p>
         {% endfor %}
 
-        Portfolio links:
-        {% for link in portfolioLinks.all %}
-            <p>
-                <a href="{{ link.link }}">{{ link.link }}</a>
-                <a href="{% url 'remove_portfolio_link' portfolioLinkId=link.id %}">remove</a>
-            </p>
-        {% endfor %}
 
-        <a href="{% url 'add_portfolio_link' %}">Add another link to your portfolio</a>
+        Portfolio links:
+        <div id="portfolio">
+            <div id="existingPortfolio">
+                {% for link in portfolioLinks.all %}
+                    <p>
+                        <a id="link" href="{{ link.link }}">{{ link.link }}</a>
+                        <span id="removeExistingLink" role="button" class="glyphicon glyphicon-remove-sign remove-portfolio-link"></span>
+                    </p>
+                {% endfor %}
+            </div>
+            <div id="linkForms"></div>
+            <span id="addToPortfolio" role="button" class="glyphicon glyphicon-plus-sign" style="color: green; font-size: 1.5em;"></span>
+        </div>
 
         {% for hidden in userForm.hidden_fields %}
             {{ hidden }}
@@ -40,9 +46,19 @@
             </p>
         {% endfor %}
 
-        <input type="submit" name="submit" value="Update" />
+        <input type="submit" value="Update" />
+    </form>
+
+    <form method="post" action=".">
+        {% csrf_token %}
     </form>
 
     <a href="{% url 'auth_password_change' %}">Change Password</a>
 
+{% endblock %}
+
+{% block js_src %}
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/searchAndPortfolio.js' %}"></script>
 {% endblock %}
