@@ -61,10 +61,10 @@ function search() {
 }
 
 function openSearchInput() {
-    searchText.style.maxWidth = "15em";
-    searchText.style.paddingTop = ".1em";
-    searchText.style.paddingBottom = ".1em";
-    searchText.style.paddingRight = ".9em";
+    searchText.style.maxWidth = "250px";
+    searchText.style.paddingTop = "3px";
+    searchText.style.paddingBottom = "3px";
+    searchText.style.paddingRight = "17px";
     searchText.select();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
@@ -75,11 +75,11 @@ function openSearchInput() {
 }
 
 function closeSearchInput() {
-    searchText.style.maxWidth = "0em";
-    searchText.style.padding = "0em";
+    searchText.style.maxWidth = "0px";
+    searchText.style.padding = "0px";
 
     searchIcon.style.transition = "background-color .2s ease .5s, color .2s ease .5s";
-    searchIcon.style.paddingLeft = ".125em";
+    searchIcon.style.paddingLeft = "5px";
     searchIcon.style.backgroundColor = "transparent";
     searchIcon.style.color = "#fff";
 

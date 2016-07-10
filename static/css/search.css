@@ -3,10 +3,10 @@
     color: #fff;
     font-size: 2em;
     outline-style: none;
-    padding-right: .125em;
-    padding-bottom: .1em;
-    padding-top: .1em;
-    padding-left: .1em;
+    padding-right: 5px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    padding-left: 3px;
     border-top-right-radius: 15px;
     border-bottom-right-radius: 15px;
     border-bottom-left-radius: 15px;
@@ -14,8 +14,8 @@
     border-style: none;
     float: right;
     margin: 0px;
-    margin-left: -.4em;
-    margin-bottom: -.28em;
+    margin-left: -12px;
+    margin-bottom: -9px;
 }
 
 .search-icon{
@@ -25,16 +25,16 @@
 }
 
 .search-text{
-    height: 2.0424em;
+    height: 34px;
     padding: 0em;
     margin-right: -.5em;
     margin-left: 0px;
     margin-top: 0px;
-    margin-bottom: -.55em;
+    margin-bottom: -10px;
     border-style: none;
     outline-style: none;
     text-indent: 1em;
-    line-height: 0px;
+    line-height: 20px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     border-bottom-left-radius: 15px;
