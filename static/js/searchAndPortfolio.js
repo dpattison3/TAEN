@@ -40,14 +40,16 @@ function portfolio() {
     document.getElementById("addToPortfolio").onclick = addToPortfolio;
 
     // submit form script on enter key
-    $(window).keydown(function(event){
-        if(event.keyCode == 13) {
+    $(window).keydown(function(event) {
+        // prevent any action on enter
+        event.preventDefault();
+        /*if(event.keyCode == 13) {
             event.preventDefault();
             var validated = updateProfile();
             if (validated) {
                 document.getElementById("editProfile").submit();
             }
-        }
+        }*/
   });
 }
 

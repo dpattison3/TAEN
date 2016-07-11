@@ -1,7 +1,7 @@
 .nav-tabs{
-    border-bottom: .1em solid #000;
-    margin-left: -2em;
-    margin-right: -2em;
+    border-bottom: 1px solid #000;
+    margin-left: -15px;
+    margin-right: -15px;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
@@ -14,8 +14,8 @@
     color: #666;
     padding-left: 1.5em;
     padding-right: 1.5em;
-    margin-right: 0em;
-    margin-left: 0em;
+    margin-right: 0px;
+    margin-left: 0px;
 }
 
 .nav-tabs > li.active > a, .nav-tabs > li > a:hover {
@@ -27,11 +27,11 @@
 .nav-tabs > li > a::after {
     content: "";
     background: #e77367;
-    height: .3em;
+    height: 5px;
     position: absolute;
     width: 100%;
     left: 0px;
-    bottom: .1em;
+    bottom: 1px;
     transition: all 350ms ease 0s;
     width: 0px;
     margin-left: 50%;
@@ -40,4 +40,63 @@
 .nav-tabs > li.active > a::after, .nav-tabs > li:hover > a::after {
     width: 100%;
     margin-left: 0%;
+}
+
+.talent-filter-dropdown{
+    margin: 0px;
+    padding: 0px;
+    border-radius: 0px;
+    outline-style: none;
+    border-style: none;
+    text-decoration: none;
+    color: color: #666;
+    outline: none !important;
+}
+
+div.talent-filter-dropdown a.accordion-toggle{
+    text-decoration: none;
+    color: #e77367;
+    outline: none !important;
+}
+
+div.talent-filter-dropdown a.accordion-toggle:hover{
+    text-decoration: none;
+    outline: none !important;
+}
+
+#collapseFilter div.list-group a.active{
+    background-color: #e77367;
+    border-style: none;
+    border-bottom: 1px solid #d5d5d5;
+    border-top: 1px solid #d5d5d5;
+}
+
+.talent-filter-div{
+    float: left;
+    padding: 0px;
+    margin-top: -45px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+    width: 100%;
+    border-radius: 0px;
+}
+
+.panel-heading{
+    background-color: #fff !important;
+    border-radius: 0px;
+    border-bottom: 1px solid #d5d5d5;
+    margin-top: -1px;
+    margin-left: -1px;
+    margin-right: -1px;
+}
+
+.panel-heading:hover{
+    background-color: #eeeeee !important;
+}
+
+.list-group-item, list-group{
+    border-radius: 0px !important;
+    margin-left: -1px;
+    margin-right: -1px;
 }

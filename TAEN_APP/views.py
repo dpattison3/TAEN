@@ -99,7 +99,7 @@ def home(request):
     if search:
         entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
 
-    paginator = Paginator(entertaenerList, 1)
+    paginator = Paginator(entertaenerList, 16)
     page = request.GET.get('page')
     try:
         entertaeners = paginator.page(page)
@@ -197,7 +197,7 @@ def contacts(request):
     if search:
         entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
 
-    paginator = Paginator(entertaenerList, 3)
+    paginator = Paginator(entertaenerList, 16)
     page = request.GET.get('page')
     try:
         entertaeners = paginator.page(page)
