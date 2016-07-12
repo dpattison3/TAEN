@@ -42,7 +42,7 @@ function portfolio() {
     // submit form script on enter key
     $(window).keydown(function(event) {
         // prevent any action on enter
-        event.preventDefault();
+        //event.preventDefault();
         /*if(event.keyCode == 13) {
             event.preventDefault();
             var validated = updateProfile();
@@ -156,20 +156,6 @@ function getCookie(name) {
     return cookieValue;
 }
 
-function validateURL(url) {
-    if ((url.length > 23) && (url.substring(0, 24).valueOf() === "https://www.youtube.com/")) {
-        return true;
-    } else if ((url.length > 22)
-            && (url.substring(0, 23).valueOf() === "http://www.youtube.com/")) {
-        return true;
-    } else if ((url.length > 15) && (url.substring(0, 15).valueOf() === "www.youtube.com/")) {
-        return true;
-    } else if ((url.length > 11) && (url.substring(0, 11).valueOf() === "youtube.com/")) {
-        return true;
-    }
-    return false;
-}
-
 // search functionality
 function search() {
     searchText = document.getElementById("searchText");
@@ -250,4 +236,59 @@ function closeSearchInput() {
     searchIcon.style.color = "#fff";
 
     isSearchOpen = false;
+}
+
+function validateURL(url) {
+    var url_whitelist = [
+            "https://www.youtube.com/.*",
+            "http://www.youtube.com/.*",
+            "www.youtube.com/.*",
+            "youtube.com/.*",
+            "https://soundcloud.com/.*",
+            "http://soundcloud.com/.*",
+            "https://www.soundcloud.com/.*",
+            "http://www.soundcloud.com/.*",
+            "www.soundcloud.com/.*",
+            "soundcloud.com/.*",
+            "https://www.spotify.com/.*",
+            "https://www.spotify.com/.*",
+            "www.spotify.com/.*",
+            "spotify.com/.*",
+            "http://www.apple.com/music/.*",
+            "https://www.apple.com/music/.*",
+            "www.apple.com/music/.*",
+            "apple.com/music/.*",
+            "https://twitter.com/.*",
+            "http://twitter.com/.*",
+            "https://www.twitter.com/.*",
+            "http://www.twitter.com/.*",
+            "www.twitter.com/.*",
+            "twitter.com/.*",
+            "https://www.facebook.com/.*",
+            "http://www.facebook.com/.*",
+            "https://facebook.com/.*",
+            "https://facebook.com/.*",
+            "www.facebook.com/.*",
+            "facebook.com/.*",
+            "https://www.pinterest.com/.*",
+            "http://www.pinterest.com/.*",
+            "https://pinterest.com/.*",
+            "http://pinterest.com/.*",
+            "www.pinterest.com/.*",
+            "pinterest.com/.*",
+            "https://www.tumblr.com/.*",
+            "https://www.tumblr.com/.*",
+            "https://tumblr.com/.*",
+            "http://tumblr.com/.*",
+            "www.tumblr.com/.*",
+            "tumblr.com/.*",
+            "https://www.instagram.com/.*",
+            "http://www.instagram.com/.*",
+            "https://instagram.com/.*",
+            "http://instagram.com/.*",
+            "www.instagram.com/.*",
+            "instagram.com/.*",
+    ]
+    var regex = new RegExp(url_whitelist.join("|"), "i");
+    return(url.match(regex) != null);
 }

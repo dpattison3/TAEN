@@ -17,6 +17,59 @@ from TAEN_APP.models import Entertaener, Talent, PortfolioLink
 import math
 from django.db.models import Func, F
 import json
+import re
+
+# list of urls allowed for portfolio links uploaded by users - prevents spam/malicious sites
+url_whitelist = [
+        re.compile('https://www.youtube.com/.*'),
+        re.compile('http://www.youtube.com/.*'),
+        re.compile('www.youtube.com/.*'),
+        re.compile('youtube.com/.*'),
+        re.compile('https://soundcloud.com/.*'),
+        re.compile('http://soundcloud.com/.*'),
+        re.compile('https://www.soundcloud.com/.*'),
+        re.compile('http://www.soundcloud.com/.*'),
+        re.compile('www.soundcloud.com/.*'),
+        re.compile('soundcloud.com/.*'),
+        re.compile('https://www.spotify.com/.*'),
+        re.compile('https://www.spotify.com/.*'),
+        re.compile('www.spotify.com/.*'),
+        re.compile('spotify.com/.*'),
+        re.compile('http://www.apple.com/music/.*'),
+        re.compile('https://www.apple.com/music/.*'),
+        re.compile('www.apple.com/music/.*'),
+        re.compile('apple.com/music/.*'),
+        re.compile('https://twitter.com/.*'),
+        re.compile('http://twitter.com/.*'),
+        re.compile('https://www.twitter.com/.*'),
+        re.compile('http://www.twitter.com/.*'),
+        re.compile('www.twitter.com/.*'),
+        re.compile('twitter.com/.*'),
+        re.compile('https://www.facebook.com/.*'),
+        re.compile('http://www.facebook.com/.*'),
+        re.compile('https://facebook.com/.*'),
+        re.compile('https://facebook.com/.*'),
+        re.compile('www.facebook.com/.*'),
+        re.compile('facebook.com/.*'),
+        re.compile('https://www.pinterest.com/.*'),
+        re.compile('http://www.pinterest.com/.*'),
+        re.compile('https://pinterest.com/.*'),
+        re.compile('http://pinterest.com/.*'),
+        re.compile('www.pinterest.com/.*'),
+        re.compile('pinterest.com/.*'),
+        re.compile('https://www.tumblr.com/.*'),
+        re.compile('https://www.tumblr.com/.*'),
+        re.compile('https://tumblr.com/.*'),
+        re.compile('http://tumblr.com/.*'),
+        re.compile('www.tumblr.com/.*'),
+        re.compile('tumblr.com/.*'),
+        re.compile('https://www.instagram.com/.*'),
+        re.compile('http://www.instagram.com/.*'),
+        re.compile('https://instagram.com/.*'),
+        re.compile('http://instagram.com/.*'),
+        re.compile('www.instagram.com/.*'),
+        re.compile('instagram.com/.*'),
+]
 
 # functions used for calculating the distances between users using database level functions
 class Sin(Func):
@@ -276,9 +329,5 @@ def updatePortfolio(request):
         )
 
 def urlValidation(url):
-    if (len(url) > 23) and ((url[:24] == 'https://www.youtube.com/') or (url[:23] == 'http://www.youtube.com/')):
+    if any(regex.match(url) for regex in url_whitelist):
         return url
-    elif (len(url) > 15) and (url[:16] == 'www.youtube.com/'):
-        return 'https://' + url
-    elif (len(url) > 11) and (url[:12] == 'youtube.com/'):
-        return 'https://www.' + url

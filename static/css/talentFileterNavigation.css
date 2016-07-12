@@ -55,7 +55,8 @@
 
 div.talent-filter-dropdown a.accordion-toggle{
     text-decoration: none;
-    color: #e77367;
+    text-align: center;
+    color: #000;
     outline: none !important;
 }
 
