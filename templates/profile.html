@@ -1,64 +1,198 @@
 {% extends 'base.html' %}
 {% load staticfiles %}
 
+{% block title_block %}ENTERTAEN - Profile{% endblock %}
+{% block background-color %}#f2f2f2{% endblock %}
 {% block body_block %}
-    <h1>Welcome to the inside of TAEN!</h1>
-    <h3>Hello I am {{ profile.name }}</h3>
-        <p>
-        {% if profile.picture %}
-            <img src={{ profile.picture.url }} />
-        {% else %}
-            <img src="{% static 'defaultProfile.png' %}" />
+
+    <div class="row profile-panel">
+        <div class="col-sm-3 col-xs-5">
+                {% if profile.picture %}
+                    <img src="{{ profile.picture.url }}" class="profile-image-full" />
+                {% else %}
+                    <img src="{% static 'defaultProfile.png' %}" class="profile-image-full" />
+                {% endif %}
+        </div>
+        <div class="col-sm-6 col-xs-7">
+            <div style="padding-left: 7%;">
+            <h3 style="font-size: 2em;"><b>{{ profile.name }}</b></h3>
+            <p style="font-size: 1.6em;">
+                <b>
+                    {% if profile.talent.all %}
+                        {% for talent in profile.talent.all %}
+                            {% if forloop.last %}
+                                {{ talent }}
+                            {% else %}
+                                {{ talent }}/
+                            {% endif %}
+                        {% endfor %}
+                    {% else %}
+                        No talent specified
+                    {% endif %}
+                </b>
+            </p>
+            <p>
+                <i class="fa fa-map-marker" style="color: #e77367; font-size: 1.5em;"></i>
+                {{ profile.city }}, {{ profile.state }}
+                ({% if distance %}{{ distance }}{% else %}0{% endif %} mi.)
+            </p>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-12">
+            <div class="row profile-header-contacts">
+                <div class="col-sm-12 col-xs-6" style="height: 1.2em;">
+                    <p>
+                        <a href="mailto:{{ profile.user.email }}">
+                            <span class="glyphicon glyphicon-envelope" id="mailTo"></span>
+                        </a>
+                    </p>
+                </div>
+                <div class="col-sm-12 col-xs-6" style="height: 1.2em;">
+                    <p>
+                        {% if isSelf %}
+                            <a href="">
+                                <span class="glyphicon glyphicon-plus-sign" id="saveContact"></span>
+                            </a>
+                        {% elif not isContact %}
+                            <a href="{% url 'add_contact' username=profile %}">
+                                <span class="glyphicon glyphicon-plus-sign" id="saveContact"></span>
+                            </a>
+                        {% else %}
+                            <a href="{% url 'remove_contact' username=profile %}">
+                                <span class="glyphicon glyphicon-remove-sign" id="removeContact"></span>
+                            </a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+            <p id="profilePitch">
+                {{ profile.pitch }}
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-3 col-xs-12" style="margin:0px;padding:0px;">
+            <div class="row profile-panel profile-side-panel">
+                <p class="profile-panel-header">
+                    <b>About</b>
+                </p>
+                <div class="profile-panel-content">
+                    <table class="profile-about-table">
+                        <tr>
+                            <th>Age</th>
+                            <td>{{profile.age }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>
+                                {% if profile.gender %}
+                                    {{ profile.gender }}
+                                {% else %}
+                                    Not Specified
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Main Genre</th>
+                            <td>{{ profile.genres }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row profile-panel profile-side-panel">
+                <p class="profile-panel-header">
+                    <b>My Work</b>
+                </p>
+                <div class="profile-panel-content">
+                    <table id="profilePortfolioTable" class="profile-link-table">
+                    </table>
+                </div>
+            </div>
+            <div class="row profile-panel profile-side-panel">
+                <p class="profile-panel-header">
+                    <b>Follow Me</b>
+                </p>
+                <div class="profile-panel-content">
+                    <table id="profileSocialTable" class="profile-link-table">
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-xs-12" style="margin:0px;padding:0px;">
+            <div class="profile-panel profile-center-panel">
+                <p class="profile-panel-header">
+                    <b>Contacts</b>
+                </p>
+                <div class="profile-panel-content">
+                    <ul class="profile-contact-list">
+                        {% if profile.contacts %}
+                            {% for contact in profile.contacts.all %}
+                                <li>
+                                    <a href="{% url 'profile' username=contact %}">
+                                        {% if contact.picture %}
+                                            <img src="{{ contact.picture.url }}" class="profile-image-small" />
+                                        {% else %}
+                                            <img src="{% static 'defaultProfile.png' %}" class="profile-image-small" />
+                                        {% endif %}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            No Contacts
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+            <div class="profile-panel profile-center-panel">
+                <p class="profile-panel-header">
+                    <b>Projects</b>
+                </p>
+                <div class="profile-panel-content">
+                    {% if profile.project.all|length %}
+                        {% for project in profile.project.all %}
+                        {% endfor %}
+                    {% else %}
+                        No projects have been added
+                    {% endif %}
+                </div>
+            </div>
+            <div class="profile-panel profile-center-panel">
+                <p class="profile-panel-header">
+                    <b>Tools of the Trade</b>
+                </p>
+                <div class="profile-panel-content">
+                    {% if profile.project.all|length %}
+                        {% for project in profile.project.all %}
+                        {% endfor %}
+                    {% else %}
+                        No tools have been added
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- -->
+    <div id="links" >
+        {% if profile.portfolioLink.all|length %}
+            {% for link in profile.portfolioLink.all %}
+                <a href="{{ link.link }}">
+                    {% if link.title %}
+                        {{ link.title }}
+                    {% else %}
+                        {{ link.link }}
+                    {% endif %}
+                </a>
+            {% endfor %}
         {% endif %}
-        </p>
-        <p>
-        Pitch: {{ profile.pitch }}
-        </p>
-        <p>
-        Portfolio:
-        {% for link in profile.portfolioLink.all %}
-            <a href="{{ link.link }}  target='_blank'">{{ link.link }}</a>
-        {% endfor %}
-        </p>
-        <p>
-        {% if profile.talent.all %} Talents: {% endif %}
-        {% for talent in profile.talent.all %}
-            {{ talent }}
-        {% endfor %}
-        </p>
-        <p>
-        {% if profile.specialization %}Specialization: {{ profile.specialization }}{% endif %}
-        </p>
-        <p>
-        {% if profile.equipment %}Tools of the trade: {{ profile.equipment }}{% endif %}
-        </p>
-        {% if not isSelf %}
-        <p>
-        Distance: {{ distance }}
-        </p>
-        <p>
-        Number of times saved: {{ num_contacts }}
-        </p>
-        {% if not isContact %}
-        <p>
-        <a href="{% url 'add_contact' username=profile %}">Add Contact</a>
-        </p>
-        {% else %}
-        <p>
-        <a href="{% url 'remove_contact' username=profile %}">Remove Contact</a>
-        </p>
-        {% endif %}
-        <p>
-        Want to work with them? <a href="mailto:{{ profile.user.email }}">Contact them</a>
-        </p>
-        {% else %}
-        <p>
-        <a href="{% url 'edit_profile' %}">Edit Profile</a>
-        </p>
-        {% endif %}
+    </div>
 
 {% endblock %}
 
 {% block js_src %}
-    <script src="{% static 'js/search.js' %}"></script>
+    <script src="{% static 'js/searchAndProfile.js' %}"></script>
 {% endblock %}

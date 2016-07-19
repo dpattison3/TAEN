@@ -1,7 +1,7 @@
 /* This is my CSS file */
 
 .fullbackground{
-    background: url("../images/city.gif") no-repeat center center fixed;
+    background: url("../images/cityBackground.jpg") no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -145,22 +145,14 @@
     margin-right: 0px !important;
 }
 
-.custom-dropdown{
-    width: 20em;
-    text-align: center;
-    margin-top: -2em;
-    margin-bottom: -2em;
-    padding-bottom: -5em;
-}
-
 .profile-preview-content {
 	padding-top: 0px;
 	color: inherit;
     text-align: center;
 }
 
-.profile-image {
-	height:100px;
+.profile-image-preview{
+	height: 100px;
     width: 100px;
     border-radius: 50%;
     border: 5px solid #fff;
@@ -188,4 +180,181 @@ ul.pagination li a{
 
 ul.pagination li a:hover{
     color: #E35D4F;
+}
+
+#mailTo{
+    color: #000;
+}
+
+#saveContact{
+    color: green;
+}
+
+#removeContact{
+    color: red;
+}
+
+.profile-panel{
+    border: 1px solid #dbdbdb;
+    border-radius: 10px;
+    background-color: #fff;
+}
+
+.profile-panel-header{
+    border-bottom: 1px solid #dbdbdb;
+    padding-top: 5px;
+    padding-left: 15px;
+}
+
+.profile-panel-content{
+    padding-top: 5px;
+    padding-left: 15px;
+    padding-bottom: 5px;
+}
+
+.profile-image-full{
+    height:125px;
+    width: 125px;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    box-shadow: 0px 2px 2px 2px #dbdbdb;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    margin-right: 40px;
+    float: right;
+}
+
+.profile-header-contacts{
+    margin-top: 10px;
+    padding: 0;
+    border: none;
+    float: left;
+    font-size: 3em;
+}
+
+.profile-side-panel{
+    padding:0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.profile-center-panel{
+    padding: 0px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-left: 10px;
+    margin-right: 0px;
+}
+
+table.profile-about-table{
+    width: 100%;
+    text-align: right;
+}
+
+table.profile-about-table tr th{
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+table.profile-about-table tr td{
+    padding-right: 10px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+}
+
+table.profile-about-table{
+    width: 100%;
+    text-align: right;
+}
+
+table.profile-about-table tr th{
+    text-decoration: none;
+}
+
+table.profile-about-table tr th{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.profile-link-table{
+    width: 100%;
+}
+
+.profile-link-table th{
+    text-decoration: none;
+    text-align: center;
+    width: 50px;
+}
+
+.profile-link-table td{
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 80px;
+    text-align: left;
+    padding-right: 10px;
+}
+
+ul.profile-contact-list{
+    width: 100%;
+    display: block;
+    white-space: nowrap;
+    overflow: auto;
+    padding: 0px;
+    margin: 0px;
+}
+
+ul.profile-contact-list li{
+    display: inline-block;
+    padding: 5px;
+}
+
+.profile-image-small{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: 1px solid #fff;
+    box-shadow: 0px 1px 1px 1px #dbdbdb;
+    margin: 0px;
+}
+
+#profilePitch{
+    font-size:  1.15em;
+    color: #818181;
+    margin-left: 5%;
+    margin-right: 5%;
+    margin-top: -30px;
+    border-top: 1px solid #cecece;
+    padding-top: 5px;
+}
+
+
+@media (max-width: 768px) {
+    .profile-header-contacts{
+        margin-top: 5px;
+        text-align: center;
+        border-top: 1px solid #dbdbdb;
+        float: none;
+        text-align: center;
+    }
+    .profile-center-panel{
+        margin-left: 0;
+        margin-top: 0;
+    }
+    .profile-image-full{
+        margin-right: 0;
+    }
+    .profile-image-full{
+        margin-right: -10px;
+    }
+    #profilePitch{
+        margin-top: 10px;
+        margin-left: -15px;
+        margin-right: -15px;
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }

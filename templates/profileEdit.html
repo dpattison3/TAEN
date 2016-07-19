@@ -1,62 +1,150 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load staticfiles %}
 
+{% block title_block %}ENTERTAEN - Edit Profile{% endblock %}
+{% block background-color %}#f2f2f2{% endblock %}
 {% block body_block %}
-    <h1>Edit your profile</h1>
+<form id="editProfile" method="post" action="." enctype='multipart/form-data'>
+    {% csrf_token %}
+    {% for hidden in profileForm.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
 
-    <form id="editProfile" method="post" action="." enctype='multipart/form-data'>
-        {% csrf_token %}
-
-        {% for hidden in profileForm.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-
-        {% for field in profileForm.visible_fields %}
-            <p>
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
-            </p>
-        {% endfor %}
-
-
-        Portfolio links:
-        <div id="portfolio">
-            <div id="existingPortfolio">
-                {% for link in portfolioLinks.all %}
-                    <p>
-                        <a id="link" href="{{ link.link }}">{{ link.link }}</a>
-                        <span id="removeExistingLink" role="button" class="glyphicon glyphicon-remove-sign remove-portfolio-link"></span>
-                    </p>
-                {% endfor %}
-            </div>
-            <div id="linkForms"></div>
-            <span id="addToPortfolio" role="button" class="glyphicon glyphicon-plus-sign" style="color: green; font-size: 1.5em;"></span>
+    <div class="row profile-panel">
+        <div class="col-sm-3 col-xs-5">
+                {% if profile.picture %}
+                    <img src="{{ profile.picture.url }}" class="profile-image-full" />
+                {% else %}
+                    <img src="{% static 'defaultProfile.png' %}" class="profile-image-full" />
+                {% endif %}
+                {{ profileForm.picture }}
+                {{ profileForm.picture.errors }}
         </div>
-
-        {% for hidden in userForm.hidden_fields %}
-            {{ hidden }}
-        {% endfor %}
-
-        {% for field in userForm.visible_fields %}
-            <p>
-            {{ field.errors }}
-            {{ field.help_text }}
-            {{ field }}
+        <div class="col-sm-6 col-xs-7">
+            <div style="padding-left: 7%;">
+            <h3 style="font-size: 2em;"><b>{{ profile.name }}</b></h3>
+            <p style="font-size: 1.6em;">
+                {{ profileForm.talent }}
+                {{ profileForm.talent.errors }}
             </p>
-        {% endfor %}
+            <p>
+                <i class="fa fa-map-marker" style="color: #e77367; font-size: 1.5em;"></i>
+                {{ profileForm.city }} {{ profileForm.city.errors }}
+                {{ profileForm.state }} {{ profileForm.state.erros }}
+            </p>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-12">
+            <div class="row profile-header-contacts">
+            </div>
+        </div>
+        <div class="col-xs-12 col-sm-9 col-sm-offset-3">
+            <p id="profilePitch">
+                {{ profileForm.pitch }}
+                {{ profileForm.pitch.errors }}
+            </p>
+        </div>
+    </div>
 
-        <input type="submit" value="Update" />
-    </form>
+    <div class="row">
+        <div class="col-sm-3 col-xs-12" style="margin:0px;padding:0px;">
+            <div class="row profile-panel profile-side-panel">
+                <p class="profile-panel-header">
+                    <b>About</b>
+                </p>
+                <div class="profile-panel-content">
+                    <table class="profile-about-table">
+                        <tr>
+                            <th>Age</th>
+                            <td>{{ profileForm.age }} {{ profileForm.age.erros }}</td>
+                        </tr>
+                        <tr>
+                            <th>Gender</th>
+                            <td>
+                                {{ profileForm.gender }} {{ profileForm.gender.errors }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Main Genre</th>
+                            <td>{{ profileForm.genres }} {{ profileForm.genres.errors }}</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="row profile-panel profile-side-panel">
+                <p class="profile-panel-header">
+                    <b>Portfolio and Social Media Links</b>
+                </p>
+                <div class="profile-panel-content">
+                    <div id="portfolio">
+                        <div id="existingPortfolio">
+                            {% for link in portfolioLinks.all %}
+                                <p>
+                                    <a id="link" href="{{ link.link }}">
+                                        {% if link.title %}
+                                            {{ link.title }}
+                                        {% else %}
+                                            {{ link.link }}
+                                        {% endif %}
+                                    </a>
+                                    <span id="removeExistingLink" role="button" class="glyphicon glyphicon-remove-sign remove-portfolio-link"></span>
+                                </p>
+                            {% endfor %}
+                        </div>
+                        <div id="linkForms"></div>
+                        <span id="addToPortfolio" role="button" class="glyphicon glyphicon-plus-sign" style="color: green; font-size: 1.5em;"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-9 col-xs-12" style="margin:0px;padding:0px;">
+            <div class="profile-panel profile-center-panel">
+                <p class="profile-panel-header">
+                    <b>Projects</b>
+                </p>
+                <div class="profile-panel-content">
+                    {% if profile.project.all|length %}
+                        {% for project in profile.project.all %}
+                        {% endfor %}
+                    {% else %}
+                        No projects have been added
+                    {% endif %}
+                </div>
+            </div>
+            <div class="profile-panel profile-center-panel">
+                <p class="profile-panel-header">
+                    <b>Tools of the Trade</b>
+                </p>
+                <div class="profile-panel-content">
+                    {% if profile.project.all|length %}
+                        {% for project in profile.project.all %}
+                        {% endfor %}
+                    {% else %}
+                        No tools have been added
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <form method="post" action=".">
-        {% csrf_token %}
-    </form>
+    {% for hidden in userForm.hidden_fields %}
+        {{ hidden }}
+    {% endfor %}
 
-    <a href="{% url 'auth_password_change' %}">Change Password</a>
+    {% for field in userForm.visible_fields %}
+        <p>
+        {{ field.errors }}
+        {{ field.help_text }}
+        {{ field }}
+        </p>
+    {% endfor %}
+
+</form>
+
+<a href="{% url 'auth_password_change' %}">Change Password</a>
 
 {% endblock %}
 
 {% block js_src %}
-    <script src="{% static 'js/searchAndPortfolio.js' %}"></script>
+    <script src="{% static 'js/searchAndEditProfile.js' %}"></script>
 {% endblock %}

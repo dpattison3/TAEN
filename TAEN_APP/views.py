@@ -12,7 +12,7 @@ from registration.models import RegistrationManager, RegistrationProfile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm, EditPortfolio
+from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm
 from TAEN_APP.models import Entertaener, Talent, PortfolioLink
 import math
 from django.db.models import Func, F
@@ -199,13 +199,16 @@ def profileEdit(request):
     else:
         profileData = {
                 'name': request.user.profile.name,
+                'gender': request.user.profile.gender,
                 'pitch': request.user.profile.pitch,
                 'picture': request.user.profile.picture,
                 'talent': request.user.profile.talent.all(),
                 'latitude': request.user.profile.latitude,
                 'longitude': request.user.profile.longitude,
-                'equipment': request.user.profile.equipment,
-                'specialization': request.user.profile.specialization
+                'city': request.user.profile.city,
+                'state': request.user.profile.state,
+                'genres': request.user.profile.genres,
+                'age': request.user.profile.age
         }
         userData = {
                 'email': request.user.email,
@@ -304,15 +307,19 @@ def updatePortfolio(request):
         deletedLinks = request.POST.getlist('deleted')
         numberOfLinksToAdd = request.POST.get('numberOfLinksToAdd')
         newLinks = request.POST.getlist('newLinks')
+        titles = request.POST.getlist('titles')
         if deletedLinks and len(deletedLinks):
             for link in deletedLinks:
                 # exclude last index in string because the url is often stored without a back-slash
                 portfolioObject = request.user.profile.portfolioLink.filter(link__icontains=link[:-1])
                 portfolioObject.delete()
         if numberOfLinksToAdd and newLinks and numberOfLinksToAdd > 1:
-            for link in newLinks:
+            for link, title in zip(newLinks, titles):
                 link = urlValidation(link)
-                if link:
+                if link and (title != None or title != ''):
+                    newLinkObject = PortfolioLink(link=link, entertaener=request.user.profile, title=title)
+                    newLinkObject.save()
+                elif link:
                     newLinkObject = PortfolioLink(link=link, entertaener=request.user.profile)
                     newLinkObject.save()
 

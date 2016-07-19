@@ -4,18 +4,21 @@ from registration.forms import RegistrationFormTermsOfService, RegistrationFormU
 from .models import Entertaener, Talent, PortfolioLink
 
 class EditProfile(forms.ModelForm):
-    name = forms.CharField(help_text= "Name:", required=False)
-    pitch = forms.CharField(help_text="Pitch:", required=False)
+    name = forms.CharField(help_text='Name:', required=False)
+    pitch = forms.CharField(help_text='Pitch:', required=False)
+    age = forms.IntegerField(help_text='Age:', required=False)
+    gender = forms.CharField(help_text='Gender:', required=False)
     talent = forms.ModelMultipleChoiceField(queryset=Talent.objects.all(), widget=forms.CheckboxSelectMultiple, help_text='Talents:', required=False)
     picture = forms.ImageField(help_text='Profile picture:', required=False)
     latitude = forms.FloatField(help_text='latitude', required=False)
     longitude = forms.FloatField(help_text='longitude', required=False)
-    specialization = forms.CharField(help_text='specialization', required=False)
-    equipment = forms.CharField(help_text='equipment', required=False)
+    city = forms.CharField(help_text='city', required=False)
+    state = forms.CharField(help_text='state', required=False)
+    genres = forms.CharField(help_text='genres', required=False)
 
     class Meta:
         model = Entertaener
-        fields = ['name', 'pitch', 'picture', 'talent', 'latitude', 'longitude', 'specialization', 'equipment']
+        fields = ['name', 'pitch', 'age', 'picture', 'talent', 'latitude', 'longitude', 'city', 'state', 'genres', 'gender']
 
 class EditUser(forms.ModelForm):
     email = forms.EmailField(help_text='Email:', required=False)
@@ -25,9 +28,3 @@ class EditUser(forms.ModelForm):
 
 class RegistrationForm(RegistrationFormTermsOfService, RegistrationFormUniqueEmail):
     pass
-
-class EditPortfolio(forms.ModelForm):
-    entertaener = forms.ModelChoiceField(queryset=Entertaener.objects.all(), widget=forms.HiddenInput(), required=False)
-    class Meta:
-        model = PortfolioLink
-        fields = ['entertaener', 'link']
