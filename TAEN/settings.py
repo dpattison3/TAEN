@@ -21,7 +21,13 @@ SECRET_KEY = 'u$ycr80e6jr=+ts77jtp4y3#gp4p%2^ij-2j0s8a41*15o5bns'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+if DEBUG:
+    ALLOWED_HOSTS = []
+else:
+    ALLOWED_HOSTS = [
+            'www.entertaen.com',
+            'entertaen.com',
+    ]
 
 SITE_ID = 1
 

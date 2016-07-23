@@ -3,7 +3,7 @@
 
 {% block body_block %}
 
-    <div class="container">
+    <div class="container fullbackground" style="height:100%; width:100%">
         <div class="top-pad-small">
             <div class="row">
                 <div class="col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-4">
@@ -23,11 +23,63 @@
                     ENTER<b>TAEN</b>
                 </a>
             </div>
-
-            <div class="row top-pad-small">
-                <a href="{% url 'about' %}" class="text-small-white">Learn more</a>
-            </div>
+        </div>
+        <div id="pageScrollDiv">
+            <a href="#about" class="page-scroll">
+                <i class="fa fa-angle-double-down"></i>
+            </a>
         </div>
     </div>
 
+    <div id="about">
+        <h3 id="indexTextTitle1" class="center-block">
+            What is TAEN?
+        </h3>
+        <p class="center-block index-description-text">
+            TAEN is an online tool designed to help aspiring music artists collaborate
+            on projects together turning their talent into quality entertainment.
+        </p>
+        <h3 id="indexTextTitle2" class="center-block">
+            Who should use TAEN?
+        </h3>
+        <p class="center-block index-description-text">
+            TAEN is for anyone who wants to collaborate with others and make something
+            great. Whatever skills you're looking for TAEN is the tool to use.
+        </p>
+        <div class="row">
+            <div class="col-md-5 col-md-offset-1 col-sm-5 col-xs-12">
+                <img src="{% static 'computerPic1.png' %}" id="computerPic1" class="computer-pictures"></img>
+            </div>
+            <div class="col-md-4 col-sm-4 col-sm-offset-1 col-xs-12">
+                <p id="indexComputerDescriptionLeft">
+                    Scroll through pages of all your local talent. Find exactly
+                    who you need to kickstart your project.
+                </p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 100px;">
+            <div class="col-md-5 col-md-offset-1 col-sm-5 col-xs-12">
+                <p id="indexComputerDescriptionRight">
+                    Show off your work so others can find you and recruit your
+                    expertise to add to your growing portfolio.
+                </p>
+            </div>
+            <div class="col-md-5 col-sm-5 col-sm-offset-1 col-xs-12">
+                <img src="{% static 'computerPic2.png' %}" id="computerPic2" class="computer-pictures"></img>
+            </div>
+        </div>
+    </div>
+    <div style="background-color: #000;text-align: center;">
+            <a href="#"><i class="fa fa-facebook social-median-icons"></i></a>
+            <a href="#"><i class="fa fa-twitter social-median-icons"></i></a>
+            <a href="#"><i class="fa fa-youtube-play social-median-icons"></i></a>
+            <a href="#"><i class="fa fa-instagram social-median-icons"></i></a>
+            <a href="#"><i class="fa fa-envelope social-median-icons"></i></a>
+    </div>
+
+{% endblock %}
+
+{% block extra_js %}
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+    <script src="{% static 'js/indexScroll.js' %}"></script>
 {% endblock %}

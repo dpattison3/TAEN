@@ -128,7 +128,7 @@
                 </p>
                 <div class="profile-panel-content">
                     <ul class="profile-contact-list">
-                        {% if profile.contacts %}
+                        {% if profile.contacts.all|length %}
                             {% for contact in profile.contacts.all %}
                                 <li>
                                     <a href="{% url 'profile' username=contact %}">

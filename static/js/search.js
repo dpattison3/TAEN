@@ -65,6 +65,7 @@ function openSearchInput() {
     searchText.style.paddingTop = "3px";
     searchText.style.paddingBottom = "3px";
     searchText.style.paddingRight = "17px";
+    searchText.style.marginLeft = "-15em";
     searchText.select();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";

@@ -224,7 +224,7 @@ function openSearchInput() {
     searchText.style.paddingTop = ".1em";
     searchText.style.paddingBottom = ".1em";
     searchText.style.paddingRight = ".9em";
-    searchText.style.marginLeft = "-15em";
+    searchText.style.marginLeft = "-200px";
     searchText.select();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
