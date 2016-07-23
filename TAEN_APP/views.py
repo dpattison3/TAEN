@@ -143,7 +143,7 @@ def termsOfService(request):
 @login_required
 def home(request):
     distanceCalculation = DistanceBetweenObjects(request.user.profile.latitude, request.user.profile.longitude)
-    entertaenerList = Entertaener.objects.exclude(user=request.user).annotate(distance=distanceCalculation).order_by('distance')
+    entertaenerList = Entertaener.objects.exclude(user__is_active=False).exclude(user=request.user).annotate(distance=distanceCalculation).order_by('distance')
 
     search = request.GET.get('search')
     talentFilter = request.GET.get('filter')
