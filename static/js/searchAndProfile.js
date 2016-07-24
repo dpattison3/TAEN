@@ -105,7 +105,7 @@ function openSearchInput() {
     searchText.style.paddingBottom = ".1em";
     searchText.style.paddingRight = ".9em";
     searchText.style.marginLeft = "-15em";
-    searchText.select();
+    searchText.focus();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
     searchIcon.style.backgroundColor = "#fff";
