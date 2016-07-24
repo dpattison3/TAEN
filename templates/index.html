@@ -3,12 +3,12 @@
 
 {% block body_block %}
 
-    <div class="container fullbackground" style="height:100%; width:100%">
+    <div class="container fullbackground" style="height:100%; width:100%;">
         <div class="top-pad-small">
             <div class="row">
                 <div class="col-md-3 col-md-offset-0 col-sm-4 col-sm-offset-4">
                     <a href="{% url 'home' %}">
-                        <img src="{% static 'images/TAEN_Logo.png' %}" style="height:90px;" class="img-responsive center-block" />
+                        <img src="{% static 'images/TAEN_Logo.png' %}" class="img-responsive center-block" />
                     </a>
                 </div>
             </div>
@@ -22,7 +22,7 @@
             </div>
             <div class="row">
                 <a href="{% url 'home' %}" role="button" class="btn enterButton">
-                    ENTER<b>TAEN</b>
+                    ENTER<b> TAEN</b>
                 </a>
             </div>
         </div>
@@ -33,7 +33,7 @@
         </div>
     </div>
 
-    <div id="about">
+    <div id="about" style="overflow-x: hidden;">
         <h3 id="indexTextTitle1" class="center-block">
             What is TAEN?
         </h3>
