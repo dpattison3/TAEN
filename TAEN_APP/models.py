@@ -75,8 +75,16 @@ class Project(models.Model):
     contributors = models.CharField(max_length=259, null=True, blank=True)
     description = models.CharField(max_length=2500, null=True, blank=True)
     link = models.URLField()
+    image = models.ImageField(upload_to=imgUploadLocation, blank=True, null=True)
+
+    def __str__(self):
+        return self.title
 
 class Tool(models.Model):
     entertaener = models.ForeignKey(Entertaener, on_delete=models.CASCADE, related_name='tool')
     title = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=300, null=True, blank=True)
+    image = models.ImageField(upload_to=imgUploadLocation, blank=True, null=True)
+
+    def __str__(self):
+        return self.title

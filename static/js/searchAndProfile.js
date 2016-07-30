@@ -68,7 +68,7 @@ function search() {
             document.getElementById("searchForm").submit();
         } else if (searchButtonLabel.contains(obj.target)) {
             openSearchInput();
-        } else if (isSearchOpen) {
+        } else if (isSearchOpen && !searchText.contains(obj.target)) {
             closeSearchInput();
         }
     }

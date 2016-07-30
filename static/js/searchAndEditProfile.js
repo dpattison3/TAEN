@@ -188,7 +188,7 @@ function search() {
             document.getElementById("searchForm").submit();
         } else if (searchButtonLabel.contains(obj.target)) {
             openSearchInput();
-        } else if (isSearchOpen) {
+        } else if (isSearchOpen && !searchText.contains(obj.target)) {
             closeSearchInput();
         }
     }
@@ -225,7 +225,7 @@ function openSearchInput() {
     searchText.style.paddingBottom = ".1em";
     searchText.style.paddingRight = ".9em";
     searchText.style.marginLeft = "-200px";
-    searchText.focus();
+    searchText.select();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
     searchIcon.style.backgroundColor = "#fff";

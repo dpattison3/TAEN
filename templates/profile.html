@@ -7,29 +7,36 @@
 
     <div class="row profile-panel">
         <div class="col-sm-3 col-xs-5">
-                {% if profile.picture %}
-                    <img src="{{ profile.picture.url }}" class="profile-image-full" />
-                {% else %}
-                    <img src="{% static 'defaultProfile.png' %}" class="profile-image-full" />
-                {% endif %}
+            <div class="row">
+                <div class="center-block" style="width: 125px;">
+                    {% if profile.picture %}
+                        <img src="{{ profile.picture.url }}" class="profile-image-full" />
+                    {% else %}
+                        <img src="{% static 'defaultProfile.png' %}" class="profile-image-full" />
+                    {% endif %}
+                    {% if isSelf %}
+                        <a href="{% url 'edit_profile' %}" class="center-block" style="color: #e77367; text-decoration: none; text-align: center;">
+                            edit profile
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
         </div>
         <div class="col-sm-6 col-xs-7">
             <div style="padding-left: 7%;">
             <h3 style="font-size: 2em;"><b>{{ profile.name }}</b></h3>
-            <p style="font-size: 1.6em;">
-                <b>
-                    {% if profile.talent.all %}
-                        {% for talent in profile.talent.all %}
-                            {% if forloop.last %}
-                                {{ talent }}
-                            {% else %}
-                                {{ talent }}/
-                            {% endif %}
-                        {% endfor %}
-                    {% else %}
-                        No talent specified
-                    {% endif %}
-                </b>
+            <p style="font-size: 1.25em; font-weight: 200;">
+                {% if profile.talent.all %}
+                    {% for talent in profile.talent.all %}
+                        {% if forloop.last %}
+                            {{ talent }}
+                        {% else %}
+                            {{ talent }}/
+                        {% endif %}
+                    {% endfor %}
+                {% else %}
+                    No talent specified
+                {% endif %}
             </p>
             <p>
                 <i class="fa fa-map-marker" style="color: #e77367; font-size: 1.5em;"></i>
@@ -150,12 +157,36 @@
                 <p class="profile-panel-header">
                     <b>Projects</b>
                 </p>
-                <div class="profile-panel-content">
+                <div class="profile-panel-content" style="padding: 0;">
                     {% if profile.project.all|length %}
                         {% for project in profile.project.all %}
+                            <a href="{{ project.link }}">
+                                <div class="row profile-projects" style="border-bottom: 1px solid #dbdbdb; margin: 0; padding: 0;">
+                                    {% if project.image %}
+                                        <img src="{{ project.image.url }}" class="profile-widget-image" />
+                                    {% else %}
+                                        <img src="{% static 'musicicon.svg' %}" class="profile-widget-image" />
+                                    {% endif %}
+                                    <p class="profile-widget-description">
+                                        {{ project.description }}
+                                    </p>
+                                    <p class="profile-widget-title">
+                                        {{ project.title }}
+                                    </p>
+                                    <p class="profile-widget-description">
+                                        {{ project.contributors }}
+                                    </p>
+                                </div>
+                            </a>
+                            {% if forloop.last %}
+                                <div style="padding: 5px;">
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     {% else %}
-                        No projects have been added
+                        <p style="padding-left: 3px;">
+                            No projects have been added
+                        </p>
                     {% endif %}
                 </div>
             </div>
@@ -163,12 +194,31 @@
                 <p class="profile-panel-header">
                     <b>Tools of the Trade</b>
                 </p>
-                <div class="profile-panel-content">
-                    {% if profile.project.all|length %}
-                        {% for project in profile.project.all %}
+                <div class="profile-panel-content" style="padding: 0;">
+                    {% if profile.tool.all|length %}
+                        {% for tool in profile.tool.all %}
+                            <div class="row" style="border-bottom: 1px solid #dbdbdb; margin: 0; margin-bottom: 10px; padding: 0;">
+                                {% if tool.image %}
+                                    <img src="{{ tool.image.url }}" class="profile-widget-image" />
+                                {% else %}
+                                    <img src="{% static 'musicicon.svg' %}" class="profile-widget-image" />
+                                {% endif %}
+                                <p class="profile-widget-title">
+                                    {{ tool.title }}
+                                </p>
+                                <p class="profile-widget-description">
+                                    {{ tool.description }}
+                                </p>
+                            </div>
+                            {% if forloop.last %}
+                                <div style="padding: 5px;">
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     {% else %}
-                        No tools have been added
+                        <p style="padding-left: 3px;">
+                            No projects have been added
+                        </p>
                     {% endif %}
                 </div>
             </div>

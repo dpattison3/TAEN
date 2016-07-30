@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block title_block %}ENTERTAEN - Edit Profile{% endblock %}
+{% block background-color %}#f2f2f2{% endblock %}
+{% block body_block %}
+
+    <form method="post" action="." enctype='multipart/form-data'>
+        {% csrf_token %}
+
+        <div class="row profile-panel" style="padding: 25px;">
+            <div class="row">
+                <div class="col-xs-12 col-md-5">
+                    <div class="row center-block" style="width: 105px;">
+                        {% if project.image %}
+                            <img src="{{ project.image.url }}" style="width: 100px; height: 100px;" />
+                        {% else %}
+                            <img src="{% static 'musicicon.svg' %}" style="width: 100px; height: 100px;" />
+                        {% endif %}
+                    </div>
+                    <div class="row center-block" style="width: 275px;">
+                        {{ projectForm.image }}
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-7">
+                    <p style="width: 320px; padding: 5px;" class="center-block">
+                        Title:
+                        <input type="text" name="title" placeholder="Title..." value="{{ projectForm.title.value }}"
+                        style="width: 315px; padding: 5px;{% if projectForm.title.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                    <p style="width: 320px; padding: 5px;" class="center-block">
+                        Description:
+                        <input type="text" name="description" placeholder="description..." value="{{ projectForm.description.value }}"
+                        style="width: 315px; padding: 5px;{% if projectForm.description.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                    <p style="width: 320px; padding: 5px;" class="center-block">
+                        Link to the project:
+                        <input type="text" name="link" placeholder="link..." value="{{ projectForm.link.value }}"
+                        style="width: 315px; padding: 5px;{% if projectForm.link.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                    <p style="width: 320px; padding: 5px;" class="center-block">
+                        Contributors:
+                        <input type="text" name="contributors" placeholder="description..." value="{{ projectForm.contributors.value }}"
+                        style="width: 315px; padding: 5px;{% if projectForm.contributors.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="center-block" style="width: 250px;">
+                    <input type="submit" name="submit" class="btn btn-success center-block" style="float: left;" />
+                    {% if project %}
+                        <button class="btn btn-danger center-block">
+                            <a href="{% url 'delete_project' project.id %}" style="text-decoration: none; color:#fff;">
+                                Delete
+                            </a>
+                        </button>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </form>
+
+{% endblock %}

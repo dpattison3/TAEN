@@ -11,38 +11,91 @@
     {% endfor %}
 
     <div class="row profile-panel">
-        <div class="col-sm-3 col-xs-5">
-                {% if profile.picture %}
-                    <img src="{{ profile.picture.url }}" class="profile-image-full" />
-                {% else %}
-                    <img src="{% static 'defaultProfile.png' %}" class="profile-image-full" />
-                {% endif %}
-                {{ profileForm.picture }}
-                {{ profileForm.picture.errors }}
-        </div>
-        <div class="col-sm-6 col-xs-7">
-            <div style="padding-left: 7%;">
-            <h3 style="font-size: 2em;"><b>{{ profile.name }}</b></h3>
-            <p style="font-size: 1.6em;">
-                {{ profileForm.talent }}
-                {{ profileForm.talent.errors }}
-            </p>
-            <p>
-                <i class="fa fa-map-marker" style="color: #e77367; font-size: 1.5em;"></i>
-                {{ profileForm.city }} {{ profileForm.city.errors }}
-                {{ profileForm.state }} {{ profileForm.state.erros }}
-            </p>
+        <div class="col-sm-6 col-xs-12">
+            <div class="row">
+                <div class="center-block" style="width: 125px;">
+                    {% if currentPorfilePicture %}
+                        <img src="{{ currentPorfilePicture.url }}" class="profile-image-full" />
+                    {% else %}
+                        <img src="{% static 'defaultProfile.png' %}" class="profile-image-full" />
+                    {% endif %}
+                    <a href="{% url 'auth_password_change' %}" class="center-block" style="text-align: center; margin-bottom: 5px;">
+                        Change Password
+                    </a>
+                </div>
+            </div>
+            <div class="row" style="padding-left: 20px;">
+                <div class="col-xs-12 col-md-8 col-md-offset-2">
+                    {{ profileForm.picture }}
+                    {{ profileForm.picture.errors }}
+                </div>
             </div>
         </div>
-        <div class="col-sm-3 col-xs-12">
-            <div class="row profile-header-contacts">
+        <div class="col-sm-6 col-xs-12">
+            <div class="center-block" style="padding-left: 7%;">
+                <h3 style="font-size: 2em;"><b>
+                    <input type="name" placeholder="name..." value="{{ profileForm.name.value }}"
+                    style="padding: 3px;{% if userForm.email.errors %}border: 1px solid red;{% endif %}" />
+                </b></h3>
+                <p>
+                    {% for hidden in userForm.hidden_fields %}
+                        {{ hidden }}
+                    {% endfor %}
+
+                    <p>
+                        Email:
+                        <input type="email" name="email" placeholder="email..." value="{{ userForm.email.value }}"
+                        style="padding: 3px;{% if userForm.email.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                </p>
+                <p>
+                    Select your talents:
+                    {{ profileForm.talent }}
+                    {{ profileForm.talent.errors }}
+                </p>
             </div>
         </div>
-        <div class="col-xs-12 col-sm-9 col-sm-offset-3">
-            <p id="profilePitch">
-                {{ profileForm.pitch }}
+        <div class="col-xs-12" style="padding-top: 20px; margin-top: 10px; border-top: 1px solid #dbdbdb;">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+                    <p>
+                        This will be displayed to other users
+                    </p>
+
+                    <p>
+                        City:
+                        <input type="text" name="city" value="{{ profileForm.city.value }}" placeholder="city..."
+                        style="padding: 3px;{% if userForm.city.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                    <p>
+                        State:
+                        <input type="text" name="state" value="{{ profileForm.state.value }}" placeholder="state..."
+                        style="padding: 3px;{% if userForm.state.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <p>
+                        This will never be displayed. It is only used for calculating
+                        approximate distances to other users.
+                    </p>
+                    <p>
+                        Latitude:
+                        <input type="text" name="latitude" value="{{ profileForm.latitude.value }}" placeholder="latitude..."
+                        style="padding: 3px;{% if userForm.latitude.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                    <p>
+                        Longitude:
+                        <input type="text" name="longitude" value="{{ profileForm.longitude.value }}" placeholder="longitude..."
+                        style="padding: 3px;{% if userForm.longitude.errors %}border: 1px solid red;{% endif %}" />
+                    </p>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 20px; border-top: 1px solid #dbdbdb;">
                 {{ profileForm.pitch.errors }}
-            </p>
+                <textarea name="pitch" type="text" maxlength="5000" placeholder="pitch yourself..."
+                style="width: 90%; height: 4em; margin-top: 10px; margin-bottom: 10px; padding: 10px;"
+                class="center-block">{% if profileForm.pitch.value %}{{ profileForm.pitch.value }}{% endif %}</textarea>
+            </div>
         </div>
     </div>
 
@@ -56,17 +109,24 @@
                     <table class="profile-about-table">
                         <tr>
                             <th>Age</th>
-                            <td>{{ profileForm.age }} {{ profileForm.age.erros }}</td>
+                            <td>
+                                <input type="text" name="age" value="{{ profileForm.age.value }}" placeholder="age..."
+                                style="padding: 3px; margin-right:3px;{% if profileForm.age.errors %}border: 1px solid red;{% endif %}" />
+                            </td>
                         </tr>
                         <tr>
                             <th>Gender</th>
                             <td>
-                                {{ profileForm.gender }} {{ profileForm.gender.errors }}
+                                <input type="text" name="gender" value="{{ profileForm.gender.value }}" placeholder="gender..."
+                                style="padding: 3px; margin-right:3px;{% if profileForm.age.errors %}border: 1px solid red;{% endif %}" />
                             </td>
                         </tr>
                         <tr>
                             <th>Main Genre</th>
-                            <td>{{ profileForm.genres }} {{ profileForm.genres.errors }}</td>
+                            <td>
+                                <input type="text" name="genres" value="{{ profileForm.genres.value }}" placeholder="genres.."
+                                style="padding: 3px; margin-right:3px;{% if profileForm.age.errors %}border: 1px solid red;{% endif %}" />
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -102,46 +162,80 @@
                 <p class="profile-panel-header">
                     <b>Projects</b>
                 </p>
-                <div class="profile-panel-content">
-                    {% if profile.project.all|length %}
-                        {% for project in profile.project.all %}
+                <div class="profile-panel-content" style="padding: 0;">
+                    {% if projects.all|length %}
+                        {% for project in projects.all %}
+                            <a href="{% url 'edit_project' projectId=project.id %}">
+                                <div class="row profile-projects" style="border-bottom: 1px solid #dbdbdb; margin: 0; padding: 0;">
+                                    {% if project.image %}
+                                        <img src="{{ project.image.url }}" class="profile-widget-image" />
+                                    {% else %}
+                                        <img src="{% static 'musicicon.svg' %}" class="profile-widget-image" />
+                                    {% endif %}
+                                    <i class="fa fa-pencil-square-o" style="float:right; padding:5px; font-size: 1.15em !important; color: #8e8e8e;" aria-hidden="true"></i>
+                                    <p class="profile-widget-description">
+                                        {{ project.description }}
+                                    </p>
+                                    <p class="profile-widget-title">
+                                        {{ project.title }}
+                                    </p>
+                                    <p class="profile-widget-description">
+                                        {{ project.contributors }}
+                                    </p>
+                                </div>
+                            </a>
+                            {% if forloop.last %}
+                                <div style="padding: 5px;">
+                                </div>
+                            {% endif %}
                         {% endfor %}
                     {% else %}
                         No projects have been added
                     {% endif %}
+                    <button class="btn btn-success center-block" style="margin-bottom: 5px;">
+                        <a href="{% url 'add_project' %}" style="color: #fff; text-decoration: none;">
+                            Add a project <span class="glyphicon glyphicon-plus-sign" style="color: #fff;"></span>
+                        </a>
+                    </button>
                 </div>
             </div>
             <div class="profile-panel profile-center-panel">
                 <p class="profile-panel-header">
                     <b>Tools of the Trade</b>
                 </p>
-                <div class="profile-panel-content">
-                    {% if profile.project.all|length %}
-                        {% for project in profile.project.all %}
+                <div class="profile-panel-content" style="padding: 0;">
+                    {% if tools.all|length %}
+                        {% for tool in tools.all %}
+                            <a href="{% url 'edit_tool' toolId=tool.id %}">
+                                <div class="row" style="border-bottom: 1px solid #dbdbdb; margin: 0; margin-bottom: 10px; padding: 0;">
+                                    {% if tool.image %}
+                                        <img src="{{ tool.image.url }}" class="profile-widget-image" />
+                                    {% else %}
+                                        <img src="{% static 'musicicon.svg' %}" class="profile-widget-image" />
+                                    {% endif %}
+                                    <i class="fa fa-pencil-square-o" style="float:right; padding:5px; font-size: 1.15em !important; color: #8e8e8e;" aria-hidden="true"></i>
+                                    <p class="profile-widget-title">
+                                        {{ tool.title }}
+                                    </p>
+                                    <p class="profile-widget-description">
+                                        {{ tool.description }}
+                                    </p>
+                                </div>
+                            </a>
                         {% endfor %}
                     {% else %}
-                        No tools have been added
+                        No projects have been added
                     {% endif %}
+                    <button class="btn btn-success center-block" style="margin-bottom: 5px;">
+                        <a href="{% url 'add_tool' %}" style="color: #fff; text-decoration: none;">
+                            Add a tool <span class="glyphicon glyphicon-plus-sign" style="color: #fff;"></span>
+                        </a>
+                    </button>
                 </div>
             </div>
         </div>
     </div>
-
-    {% for hidden in userForm.hidden_fields %}
-        {{ hidden }}
-    {% endfor %}
-
-    {% for field in userForm.visible_fields %}
-        <p>
-        {{ field.errors }}
-        {{ field.help_text }}
-        {{ field }}
-        </p>
-    {% endfor %}
-
 </form>
-
-<a href="{% url 'auth_password_change' %}">Change Password</a>
 
 {% endblock %}
 

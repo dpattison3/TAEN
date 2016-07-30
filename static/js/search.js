@@ -29,7 +29,7 @@ function search() {
             document.getElementById("searchForm").submit();
         } else if (searchButtonLabel.contains(obj.target)) {
             openSearchInput();
-        } else if (isSearchOpen) {
+        } else if (isSearchOpen && !searchText.contains(obj.target)) {
             closeSearchInput();
         }
     }
@@ -61,12 +61,13 @@ function search() {
 }
 
 function openSearchInput() {
-    searchText.style.maxWidth = "250px";
+    searchText.style.maxWidth = "125px";
     searchText.style.paddingTop = "3px";
     searchText.style.paddingBottom = "3px";
     searchText.style.paddingRight = "17px";
     searchText.style.marginLeft = "-15em";
     searchText.focus();
+    searchText.select();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
     searchIcon.style.backgroundColor = "#fff";
