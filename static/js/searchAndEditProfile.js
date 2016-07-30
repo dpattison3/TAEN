@@ -135,7 +135,7 @@ function addToPortfolio() {
         link.select();
         ++numberOfLinks;
     }
-    if (numberOfLinks == 5) {
+    if (numberOfLinks >= 10) {
         var addLink = document.getElementById("addToPortfolio");
         portfolio.removeChild(addLink);
     }

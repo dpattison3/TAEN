@@ -34,7 +34,7 @@
         <div class="col-sm-6 col-xs-12">
             <div class="center-block" style="padding-left: 7%;">
                 <h3 style="font-size: 2em;"><b>
-                    <input type="name" placeholder="name..." value="{{ profileForm.name.value }}"
+                    <input type="text" name="name" placeholder="name..." value="{{ profileForm.name.value }}"
                     style="padding: 3px;{% if userForm.email.errors %}border: 1px solid red;{% endif %}" />
                 </b></h3>
                 <p>
@@ -190,7 +190,9 @@
                             {% endif %}
                         {% endfor %}
                     {% else %}
-                        No projects have been added
+                        <p style="padding-left: 3px;">
+                            No projects have been added
+                        </p>
                     {% endif %}
                     <button class="btn btn-success center-block" style="margin-bottom: 5px;">
                         <a href="{% url 'add_project' %}" style="color: #fff; text-decoration: none;">
@@ -224,7 +226,9 @@
                             </a>
                         {% endfor %}
                     {% else %}
-                        No projects have been added
+                        <p style="padding-left: 3px;">
+                            No tools have been added
+                        </p>
                     {% endif %}
                     <button class="btn btn-success center-block" style="margin-bottom: 5px;">
                         <a href="{% url 'add_tool' %}" style="color: #fff; text-decoration: none;">
