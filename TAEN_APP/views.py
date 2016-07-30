@@ -12,8 +12,8 @@ from registration.models import RegistrationManager, RegistrationProfile
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
-from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm
-from TAEN_APP.models import Entertaener, Talent, PortfolioLink
+from TAEN_APP.forms import EditProfile, EditUser, RegistrationForm, EditProject, EditTool
+from TAEN_APP.models import Entertaener, Talent, PortfolioLink, Project, Tool
 import math
 from django.db.models import Func, F
 import json
@@ -193,9 +193,6 @@ def profileEdit(request):
             profileForm.save(commit=True)
             userForm.save(commit=True)
             return redirect('profile', username=request.user.username)
-        else:
-            print(profileForm.errors)
-            print(userForm.errors)
     else:
         profileData = {
                 'name': request.user.profile.name,
@@ -208,7 +205,7 @@ def profileEdit(request):
                 'city': request.user.profile.city,
                 'state': request.user.profile.state,
                 'genres': request.user.profile.genres,
-                'age': request.user.profile.age
+                'age': request.user.profile.age,
         }
         userData = {
                 'email': request.user.email,
@@ -216,10 +213,15 @@ def profileEdit(request):
         profileForm = EditProfile(initial=profileData)
         userForm = EditUser(initial=userData)
 
-    return render(request, 'profileEdit.html', {
-        'profileForm': profileForm,
-        'userForm': userForm,
-        'portfolioLinks': request.user.profile.portfolioLink})
+    context = {
+            'profileForm': profileForm,
+            'currentPorfilePicture': request.user.profile.picture,
+            'userForm': userForm,
+            'portfolioLinks': request.user.profile.portfolioLink.all(),
+            'projects': request.user.profile.project.all(),
+            'tools': request.user.profile.tool.all(),
+    }
+    return render(request, 'profileEdit.html', context)
 
 @login_required
 def addContact(request, username):
@@ -338,3 +340,86 @@ def updatePortfolio(request):
 def urlValidation(url):
     if any(regex.match(url) for regex in url_whitelist):
         return url
+
+@login_required
+def addProject(request):
+    if request.method == 'POST':
+        projectForm = EditProject(request.POST, request.FILES or None)
+        if projectForm.is_valid():
+            project = projectForm.save(commit=False)
+            project.entertaener = request.user.profile
+            project.save()
+            return redirect('edit_profile')
+    else:
+        projectForm = EditProject()
+    return render(request, 'projectEdit.html', {'projectForm': projectForm})
+
+
+@login_required
+def editProject(request, projectId):
+    project = get_object_or_404(Project, pk=projectId)
+
+    if request.method == 'POST':
+        projectForm = EditProject(request.POST, request.FILES or None, instance=project)
+        if projectForm.is_valid():
+            projectForm.save(commit=True)
+            return redirect('edit_profile')
+    else:
+        projectData = {
+                'title': project.title,
+                'contributors': project.contributors,
+                'description': project.description,
+                'link': project.link,
+                'image': project.image,
+        }
+        projectForm = EditProject(initial=projectData)
+    return render(request, 'projectEdit.html', {
+            'projectForm': projectForm,
+            'project': project
+    })
+
+@login_required
+def deleteProject(request, projectId):
+    project = get_object_or_404(Project, pk=projectId)
+    project.delete()
+    return redirect('edit_profile')
+
+@login_required
+def addTool(request):
+    if request.method == 'POST':
+        toolForm = EditTool(request.POST, request.FILES or None)
+        if toolForm.is_valid():
+            tool = toolForm.save(commit=False)
+            tool.entertaener = request.user.profile
+            tool.save()
+            return redirect('edit_profile')
+    else:
+        toolForm = EditTool()
+    return render(request, 'toolEdit.html', {'toolForm': toolForm})
+
+@login_required
+def editTool(request, toolId):
+    tool = get_object_or_404(Tool, pk=toolId)
+
+    if request.method == 'POST':
+        toolForm = EditTool(request.POST, request.FILES or None, instance=tool)
+        if toolForm.is_valid():
+            toolForm.save(commit=True)
+            return redirect('edit_profile')
+    else:
+        toolData = {
+                'title': tool.title,
+                'description': tool.description,
+                'image': tool.image,
+        }
+        toolForm = EditTool(initial=toolData)
+    return render(request, 'toolEdit.html', {
+            'toolForm': toolForm,
+            'tool': tool,
+    })
+
+@login_required
+def deleteTool(request, toolId):
+    tool = get_object_or_404(Tool, pk=toolId)
+    tool.delete()
+    return redirect('edit_profile')
