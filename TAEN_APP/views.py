@@ -134,9 +134,6 @@ def paginationPageList(pageRange, currentPage, numPages):
 def index(request):
     return render(request, 'index.html', {})
 
-def about(request):
-    return render(request, 'about.html', {})
-
 def termsOfService(request):
     return render(request, 'termsOfService.html', {})
 
@@ -264,8 +261,13 @@ def contacts(request):
     except EmptyPage:
         entertaeners = paginator.page(paginator.num_pages)
 
+    paginatorList = paginationPageList(paginator.page_range, entertaeners.number, paginator.num_pages)
     talentList = Talent.objects.all()
-    return render(request, 'home.html', {'profiles': entertaeners, 'talents': talentList})
+    return render(request, 'home.html', {
+            'profiles': entertaeners,
+            'talents': talentList,
+            'pages': paginatorList,
+            'currentPage': entertaeners.number})
 
 class ActivateAccount(ActivationView):
     def get_success_url(self, user):

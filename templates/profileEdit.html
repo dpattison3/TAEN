@@ -35,7 +35,7 @@
             <div class="center-block" style="padding-left: 7%;">
                 <h3 style="font-size: 2em;"><b>
                     <input type="text" name="name" placeholder="name..." value="{{ profileForm.name.value }}"
-                    style="padding: 3px;{% if userForm.email.errors %}border: 1px solid red;{% endif %}" />
+                    style="padding: 3px;width:90%;{% if userForm.email.errors %}border: 1px solid red;{% endif %}" />
                 </b></h3>
                 <p>
                     {% for hidden in userForm.hidden_fields %}

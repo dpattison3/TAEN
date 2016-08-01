@@ -74,8 +74,8 @@ a{
 
 .profile-preview {
     height: 100%;
-    margin: 5px 0px 5px 0px;
-    outline: 1px solid #dbdbdb;
+    margin: 0px 0px -1px -1px;
+    border: 1px solid #dbdbdb;
     background: transparent;
     color: #4d4d4d;
 }
@@ -93,11 +93,6 @@ a{
 .site-footer {
 	background-color: #242424;
 	color: white;
-}
-
-.negative-bottom-margin{
-    margin-bottom: -3px !important;
-    margin-right: 0px !important;
 }
 
 .profile-preview-content {
