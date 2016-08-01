@@ -30,12 +30,12 @@
                 <div class="col-xs-12 col-md-7">
                     <p style="width: 320px; padding: 5px;" class="center-block">
                         Title:
-                        <input type="text" name="title" placeholder="Title..." value="{{ toolForm.title.value }}" style="width: 315px; padding: 5px;
+                        <input type="text" name="title" placeholder="Title..." value="{% if toolForm.title.value %}{{ toolForm.title.value }}{% endif %}" style="width: 315px; padding: 5px;
                         {% if toolForm.title.errors %}border: 1px solid red;{%endif %}" />
                     </p>
                     <p style="width: 320px; padding: 5px;" class="center-block">
                         Description:
-                        <input type="text" name="description" placeholder="description..." value="{{ toolForm.description.value }}" style="width: 315px; padding: 5px;
+                        <input type="text" name="description" placeholder="description..." value="{% if toolForm.description.value %}{{ toolForm.description.value }}{% endif %}" style="width: 315px; padding: 5px;
                         {% if toolForm.description.errors %}border: 1px solid red;{%endif %}" />
                     </p>
                 </div>

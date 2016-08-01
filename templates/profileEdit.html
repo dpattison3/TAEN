@@ -34,8 +34,8 @@
         <div class="col-sm-6 col-xs-12">
             <div class="center-block" style="padding-left: 7%;">
                 <h3 style="font-size: 2em;"><b>
-                    <input type="text" name="name" placeholder="name..." value="{{ profileForm.name.value }}"
-                    style="padding: 3px;width:90%;{% if userForm.email.errors %}border: 1px solid red;{% endif %}" />
+                    <input type="text" name="name" placeholder="name..." value="{% if profileForm.name.value %}{{ profileForm.name.value }}{% endif %}"
+                    style="padding: 3px;width:90%;{% if profileForm.name.errors %}border: 1px solid red;{% endif %}" />
                 </b></h3>
                 <p>
                     {% for hidden in userForm.hidden_fields %}
@@ -44,7 +44,7 @@
 
                     <p>
                         Email:
-                        <input type="email" name="email" placeholder="email..." value="{{ userForm.email.value }}"
+                        <input type="email" name="email" placeholder="email..." value="{% if userForm.email.value %}{{ userForm.email.value }}{% endif %}"
                         style="padding: 3px;{% if userForm.email.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                 </p>
@@ -64,12 +64,12 @@
 
                     <p>
                         City:
-                        <input type="text" name="city" value="{{ profileForm.city.value }}" placeholder="city..."
+                        <input type="text" name="city" value="{% if profileForm.city.value %}{{ profileForm.city.value }}{% endif %}" placeholder="city..."
                         style="padding: 3px;{% if userForm.city.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                     <p>
                         State:
-                        <input type="text" name="state" value="{{ profileForm.state.value }}" placeholder="state..."
+                        <input type="text" name="state" value="{% if profileForm.state.value %}{{ profileForm.state.value }}{% endif %}" placeholder="state..."
                         style="padding: 3px;{% if userForm.state.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                 </div>
@@ -80,12 +80,12 @@
                     </p>
                     <p>
                         Latitude:
-                        <input type="text" name="latitude" value="{{ profileForm.latitude.value }}" placeholder="latitude..."
+                        <input type="text" name="latitude" value="{% if profileForm.latitude.value %}{{ profileForm.latitude.value }}{% endif %}" placeholder="latitude..."
                         style="padding: 3px;{% if userForm.latitude.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                     <p>
                         Longitude:
-                        <input type="text" name="longitude" value="{{ profileForm.longitude.value }}" placeholder="longitude..."
+                        <input type="text" name="longitude" value="{% if profileForm.longitude.value %}{{ profileForm.longitude.value }}{% endif %}" placeholder="longitude..."
                         style="padding: 3px;{% if userForm.longitude.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                 </div>
@@ -93,7 +93,7 @@
             <div class="row" style="padding-top: 20px; border-top: 1px solid #dbdbdb;">
                 {{ profileForm.pitch.errors }}
                 <textarea name="pitch" type="text" maxlength="5000" placeholder="pitch yourself..."
-                style="width: 90%; height: 4em; margin-top: 10px; margin-bottom: 10px; padding: 10px;"
+                style="width: 90%; height: 4em; margin-top: 10px; margin-bottom: 10px; padding: 10px;{% if userForm.pitch.errors %}border: 1px solid red;{% endif %}"
                 class="center-block">{% if profileForm.pitch.value %}{{ profileForm.pitch.value }}{% endif %}</textarea>
             </div>
         </div>
@@ -110,22 +110,22 @@
                         <tr>
                             <th>Age</th>
                             <td>
-                                <input type="text" name="age" value="{{ profileForm.age.value }}" placeholder="age..."
+                                <input type="text" name="age" value="{% if profileForm.age.value %}{{ profileForm.age.value }}{% endif %}" placeholder="age..."
                                 style="padding: 3px; margin-right:3px;{% if profileForm.age.errors %}border: 1px solid red;{% endif %}" />
                             </td>
                         </tr>
                         <tr>
                             <th>Gender</th>
                             <td>
-                                <input type="text" name="gender" value="{{ profileForm.gender.value }}" placeholder="gender..."
-                                style="padding: 3px; margin-right:3px;{% if profileForm.age.errors %}border: 1px solid red;{% endif %}" />
+                                <input type="text" name="gender" value="{% if profileForm.gender.value %}{{ profileForm.gender.value }}{% endif %}" placeholder="gender..."
+                                style="padding: 3px; margin-right:3px;{% if profileForm.gender.errors %}border: 1px solid red;{% endif %}" />
                             </td>
                         </tr>
                         <tr>
                             <th>Main Genre</th>
                             <td>
-                                <input type="text" name="genres" value="{{ profileForm.genres.value }}" placeholder="genres.."
-                                style="padding: 3px; margin-right:3px;{% if profileForm.age.errors %}border: 1px solid red;{% endif %}" />
+                                <input type="text" name="genres" value="{% if profileForm.genres.value %}{{ profileForm.genres.value }}{% endif %}" placeholder="genres.."
+                                style="padding: 3px; margin-right:3px;{% if profileForm.genres.errors %}border: 1px solid red;{% endif %}" />
                             </td>
                         </tr>
                     </table>

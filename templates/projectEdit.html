@@ -30,22 +30,22 @@
                 <div class="col-xs-12 col-md-7">
                     <p style="width: 320px; padding: 5px;" class="center-block">
                         Title:
-                        <input type="text" name="title" placeholder="Title..." value="{{ projectForm.title.value }}"
+                        <input type="text" name="title" placeholder="Title..." value="{% if projectForm.title.value %}{{ projectForm.title.value }}{% endif %}"
                         style="width: 315px; padding: 5px;{% if projectForm.title.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                     <p style="width: 320px; padding: 5px;" class="center-block">
                         Description:
-                        <input type="text" name="description" placeholder="description..." value="{{ projectForm.description.value }}"
+                        <input type="text" name="description" placeholder="description..." value="{% if projectForm.description.value %}{{ projectForm.description.value }}{% endif %}"
                         style="width: 315px; padding: 5px;{% if projectForm.description.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                     <p style="width: 320px; padding: 5px;" class="center-block">
                         Link to the project:
-                        <input type="text" name="link" placeholder="link..." value="{{ projectForm.link.value }}"
+                        <input type="text" name="link" placeholder="link..." value="{% if projectForm.link.value %}{{ projectForm.link.value }}{% endif %}"
                         style="width: 315px; padding: 5px;{% if projectForm.link.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                     <p style="width: 320px; padding: 5px;" class="center-block">
                         Contributors:
-                        <input type="text" name="contributors" placeholder="description..." value="{{ projectForm.contributors.value }}"
+                        <input type="text" name="contributors" placeholder="description..." value="{% if projectForm.contributors.value %}{{ projectForm.contributors.value }}{% endif %}"
                         style="width: 315px; padding: 5px;{% if projectForm.contributors.errors %}border: 1px solid red;{% endif %}" />
                     </p>
                 </div>
