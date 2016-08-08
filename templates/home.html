@@ -72,7 +72,7 @@
 
 <div class="container">
     <!-- profile content -->
-    <div class="row">
+    <div class="row" id="profileContainer">
         {% for profile in profiles %}
             <a href="{% url 'profile' username=profile %}">
                 <div class="col-xs-6 col-md-4 col-lg-3 profile-preview" >
@@ -158,4 +158,5 @@
 
 {% block js_src %}
     <script src="{% static 'js/search.js' %}"></script>
+    <script src="{% static 'js/home.js' %}"></script>
 {% endblock %}
