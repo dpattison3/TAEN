@@ -16,11 +16,11 @@
                 {% for talent in talents %}
                     {% if request.GET.filter == talent|stringformat:"s" %}
                         <li role="presentation" class="active">
-                            <a href="{% urlReplace request 'talent' talent %}">{{ talent }}</a>
+                            <a href="?{% urlReplace request 'filter' talent %}">{{ talent }}</a>
                         </li>
                     {% else %}
                         <li role="presentation">
-                            <a href="{% urlReplace request 'talent' talent %}">{{ talent }}</a>
+                            <a href="?{% urlReplace request 'filter' talent %}">{{ talent }}</a>
                         </li>
                     {% endif %}
                 {% endfor %}
@@ -54,11 +54,11 @@
                         {% endif %}
                         {% for talent in talents %}
                             {% if request.GET.filter == talent|stringformat:"s" %}
-                                <a href="{% urlReplace request 'talent' talent %}" class="list-group-item active">
+                                <a href="?{% urlReplace request 'filter' talent %}" class="list-group-item active">
                                     {{ talent }}
                                 </a>
                             {% else %}
-                                <a href="{% urlReplace request 'talent' talent %}" class="list-group-item">
+                                <a href="?{% urlReplace request 'filter' talent %}" class="list-group-item">
                                     {{ talent }}
                                 </a>
                             {% endif %}

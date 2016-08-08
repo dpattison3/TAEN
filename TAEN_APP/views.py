@@ -145,7 +145,8 @@ def home(request):
     search = request.GET.get('search')
     talentFilter = request.GET.get('filter')
     if talentFilter:
-        entertaenerList =  entertaenerList.filter(talent=(Talent.Talent_Dictionary[talentFilter]+1))
+        talentObj = Talent.objects.get(talent=(Talent.Talent_Dictionary[talentFilter]))
+        entertaenerList = entertaenerList.filter(talent=talentObj)
     if search:
         entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
 
@@ -248,7 +249,8 @@ def contacts(request):
     search = request.GET.get('search')
     talentFilter = request.GET.get('filter')
     if talentFilter:
-        entertaenerList =  entertaenerList.filter(talent=(Talent.Talent_Dictionary[talentFilter]+1))
+        talentObj = Talent.objects.get(talent=(Talent.Talent_Dictionary[talentFilter]))
+        entertaenerList = entertaenerList.filter(talent=talentObj)
     if search:
         entertaenerList = entertaenerList.filter(name__icontains=search).distinct()
 

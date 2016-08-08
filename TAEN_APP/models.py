@@ -8,9 +8,9 @@ def imgUploadLocation(instance, filename):
     return "%s/%s" %(instance.id, filename)
 
 class Talent(models.Model):
-    RecordingEngineer = 0
-    Artist = 1
-    Producer = 2
+    Artist = 0
+    Producer = 1
+    RecordingEngineer = 2
     SoundMixer = 3
     Talent_Choices = [
             (Artist, 'Artist'),
@@ -44,7 +44,7 @@ class Entertaener(models.Model):
     city = models.CharField(max_length=50, default='Atlanta')
     state = models.CharField(max_length=50, default='GA')
 
-    talent = models.ManyToManyField(Talent)
+    talent = models.ManyToManyField(Talent, related_name='entertaeners')
     genres = models.CharField(max_length=200, default='All')
     pitch = models.CharField(max_length=5000, blank=True, null=True)
 
