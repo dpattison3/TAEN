@@ -112,12 +112,6 @@ AUTH_PASSWORD_VALIDATORS = [
 # These settings set up email sending which prints out the email in the terminal - Needs to change before release - use format below
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 DEFAULT_FROM_EMAIL = 'support@entertaen.com'
-# format for future real email server
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = 'user@gmail.com'
-# EMAIL_HOST_PASSWORD = 'password'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
@@ -129,9 +123,9 @@ STATIC_URL = '/static/'
 #STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 STATICFILES_DIRS = (
         os.path.join(BASE_DIR, 'static', 'images'),
-#        os.path.join(BASE_DIR, 'static', 'css'),
+        os.path.join(BASE_DIR, 'static', 'css'),
         os.path.join(BASE_DIR, 'static', 'js'),
-#        os.path.join(BASE_DIR, 'static', 'fonts'),
+        os.path.join(BASE_DIR, 'static', 'fonts'),
         os.path.join(BASE_DIR, 'static'),
 )
 STATICFILES_FINDERS = [
