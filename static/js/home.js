@@ -9,6 +9,7 @@ var isSearchOpen;
 function start() {
     profileHeightAdjustment();
     search();
+    linkClick();
 }
 
 function profileHeightAdjustment() {
@@ -104,4 +105,15 @@ function closeSearchInput() {
     searchIcon.style.color = "#fff";
 
     isSearchOpen = false;
+}
+
+function linkClick() {
+    var list = document.getElementsByClassName("list-group-item");
+    for (var i = 0; i < list.length; ++i) {
+        list[i].onclick = linkClickCallback;
+    }
+}
+
+function linkClickCallback(obj) {
+    window.location = obj.target;
 }
