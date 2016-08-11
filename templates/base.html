@@ -35,8 +35,8 @@
                         </div>
                         <div class="nav navbar-header pull-right" style="padding-top: .3em;">
                             <label>
-                                <form id="searchForm">
-                                    <input type="text" name="search" placeholder="search" id="searchText" class="search-text" />
+                                <form id="searchForm" action="/home">
+                                    <input type="text" name="search" placeholder="search" id="searchText" class="search-text" {% if request.GET.search %}value="{{ request.GET.search }}"{% endif %} />
                                 </form>
                             </label>
                             <label id="searchButtonLabel" title="search for someone">

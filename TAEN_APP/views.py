@@ -349,7 +349,13 @@ def urlValidation(url):
 def addProject(request):
     if request.method == 'POST':
         projectForm = EditProject(request.POST, request.FILES or None)
-        if projectForm.is_valid():
+        valid = projectForm.is_valid()
+        if valid:
+            link = projectForm.cleaned_data['link']
+            linkValid = urlValidation(link)
+        else:
+            linkValid = True
+        if valid and linkValid:
             project = projectForm.save(commit=False)
             project.entertaener = request.user.profile
             project.save()
@@ -365,7 +371,13 @@ def editProject(request, projectId):
 
     if request.method == 'POST':
         projectForm = EditProject(request.POST, request.FILES or None, instance=project)
-        if projectForm.is_valid():
+        valid = projectForm.is_valid()
+        if valid:
+            link = projectForm.cleaned_data['link']
+            linkValid = urlValidation(link)
+        else:
+            linkValid = True
+        if valid and linkValid:
             projectForm.save(commit=True)
             return redirect('edit_profile')
     else:

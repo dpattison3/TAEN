@@ -170,19 +170,6 @@ function search() {
     searchIcon = document.getElementById("searchIcon");
     isSearchOpen = false;
 
-    // check if there is an existing search request and populate the text field
-    var url = window.location.href;
-    var searchIndex = url.indexOf("search=");
-    if (searchIndex != -1) {
-        var searchQuery = url.substring(searchIndex + 7, url.length);
-        var ampIndex = searchQuery.indexOf("&");
-        if (ampIndex != -1) {
-            searchQuery = searchQuery.substring(0, ampIndex);
-        }
-        openSearchInput();
-        searchText.value = searchQuery;
-    }
-
     document.onclick = function(obj) {
         if (searchButtonLabel.contains(obj.target) && isSearchOpen) {
             document.getElementById("searchForm").submit();

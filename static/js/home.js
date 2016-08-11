@@ -35,13 +35,7 @@ function search() {
     var url = window.location.href;
     var searchIndex = url.indexOf("search=");
     if (searchIndex != -1) {
-        var searchQuery = url.substring(searchIndex + 7, url.length);
-        var ampIndex = searchQuery.indexOf("&");
-        if (ampIndex != -1) {
-            searchQuery = searchQuery.substring(0, ampIndex);
-        }
         openSearchInput();
-        searchText.value = searchQuery;
     }
 
     document.onclick = function(obj) {
