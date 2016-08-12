@@ -51,7 +51,7 @@ function search() {
     searchButtonLabel.onmouseover = function() {
         searchIcon.style.transition = "0s";
         if (isSearchOpen) {
-            searchIcon.style.color = "#5a5a5a";
+            searchIcon.style.backgroundColor = "#bdbdbd";
         } else {
             searchIcon.style.color = "#818181";
         }
@@ -59,7 +59,7 @@ function search() {
 
     searchButtonLabel.onmouseleave = function() {
         if (isSearchOpen) {
-            searchIcon.style.color = "#818181";
+            searchIcon.style.backgroundColor = "#cecece";
         } else {
             searchIcon.style.color = "#fff";
         }
@@ -80,11 +80,12 @@ function openSearchInput() {
     searchText.style.paddingBottom = ".1em";
     searchText.style.paddingRight = ".9em";
     searchText.style.marginLeft = "-200px";
+    searchIcon.style.paddingLeft = "5px";
     searchText.select();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
-    searchIcon.style.backgroundColor = "#fff";
-    searchIcon.style.color = "#818181";
+    searchIcon.style.backgroundColor = "#cecece";
+    searchIcon.style.color = "#5a5a5a";
 
     isSearchOpen = true;
 }

@@ -5,12 +5,12 @@
     outline-style: none;
     padding-right: 5px;
     padding-bottom: 3px;
-    padding-top: 3px;
+    padding-top: 6px;
     padding-left: 3px;
-    border-top-right-radius: 15px;
-    border-bottom-right-radius: 15px;
-    border-bottom-left-radius: 15px;
-    border-top-left-radius: 15px;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+    border-bottom-left-radius: 1px;
+    border-top-left-radius: 1px;
     border-style: none;
     float: right;
     margin: 0px;
@@ -25,7 +25,7 @@
 }
 
 .search-text{
-    height: 34px;
+    height: 37px;
     padding: 0em;
     margin-right: -.5em;
     margin-left: 0px;
@@ -37,10 +37,12 @@
     line-height: 20px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
-    border-bottom-left-radius: 15px;
-    border-top-left-radius: 15px;
+    border-bottom-left-radius: 1px;
+    border-top-left-radius: 1px;
     float: right;
     font-size: 1.2em;
     max-width: 0em;
     transition: all .3s ease .2s;
+    color: #535353;
+    font-weight: 400;
 }
