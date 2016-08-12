@@ -12,6 +12,14 @@ var searchIcon;
 var isSearchOpen;
 
 function start() {
+    if (window.innerWidth <= 768) {
+        searchTextWidth = "125";
+    } else if (window.innerWidth <= 992) {
+        searchTextWidth = "150";
+    } else {
+        searchTextWidth = "200";
+    }
+    
     portfolio();
     search();
 }
@@ -170,6 +178,13 @@ function search() {
     searchIcon = document.getElementById("searchIcon");
     isSearchOpen = false;
 
+    // check if there is an existing search request and populate the text field
+    var url = window.location.href;
+    var searchIndex = url.indexOf("search=");
+    if (searchIndex != -1) {
+        openSearchInput();
+    }
+
     document.onclick = function(obj) {
         if (searchButtonLabel.contains(obj.target) && isSearchOpen) {
             document.getElementById("searchForm").submit();
@@ -183,7 +198,7 @@ function search() {
     searchButtonLabel.onmouseover = function() {
         searchIcon.style.transition = "0s";
         if (isSearchOpen) {
-            searchIcon.style.color = "#5a5a5a";
+            searchIcon.style.backgroundColor = "#bdbdbd";
         } else {
             searchIcon.style.color = "#818181";
         }
@@ -191,7 +206,7 @@ function search() {
 
     searchButtonLabel.onmouseleave = function() {
         if (isSearchOpen) {
-            searchIcon.style.color = "#818181";
+            searchIcon.style.backgroundColor = "#cecece";
         } else {
             searchIcon.style.color = "#fff";
         }
@@ -207,23 +222,23 @@ function search() {
 }
 
 function openSearchInput() {
-    searchText.style.maxWidth = "15em";
+    $("#searchText").width(searchTextWidth);
     searchText.style.paddingTop = ".1em";
     searchText.style.paddingBottom = ".1em";
-    searchText.style.paddingRight = ".9em";
-    searchText.style.marginLeft = "-200px";
+    searchText.style.paddingRight = ".35em";
     searchText.select();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
-    searchIcon.style.backgroundColor = "#fff";
-    searchIcon.style.color = "#818181";
+    searchIcon.style.backgroundColor = "#cecece";
+    searchIcon.style.color = "#5a5a5a";
 
     isSearchOpen = true;
 }
 
 function closeSearchInput() {
-    searchText.style.maxWidth = "0em";
-    searchText.style.padding = "0em";
+    $("#searchText").width("0");
+    searchText.style.width = "0px";
+    searchText.style.padding = "0px";
 
     searchIcon.style.transition = "background-color .2s ease .5s, color .2s ease .5s";
     searchIcon.style.paddingLeft = ".125em";

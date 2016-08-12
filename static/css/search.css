@@ -9,31 +9,32 @@
     padding-left: 3px;
     border-top-right-radius: 1px;
     border-bottom-right-radius: 1px;
-    border-bottom-left-radius: 1px;
-    border-top-left-radius: 1px;
+    border-bottom-left-radius: 0px;
+    border-top-left-radius: 0px;
     border-style: none;
     float: right;
     margin: 0px;
-    margin-left: -12px;
     margin-bottom: -9px;
+    margin-right: -2px !important;
 }
 
 .search-icon{
     color: inherit;
     padding: 0px;
     font-size: 2em;
+    margin-right: 2px;
 }
 
 .search-text{
     height: 37px;
     padding: 0em;
-    margin-right: -.5em;
-    margin-left: 0px;
+    margin-right: -4px;
+    margin-left: -200px;
     margin-top: 0px;
     margin-bottom: -10px;
     border-style: none;
     outline-style: none;
-    text-indent: 1em;
+    text-indent: .5em;
     line-height: 20px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
@@ -41,7 +42,7 @@
     border-top-left-radius: 1px;
     float: right;
     font-size: 1.2em;
-    max-width: 0em;
+    width: 0px;
     transition: all .3s ease .2s;
     color: #535353;
     font-weight: 400;

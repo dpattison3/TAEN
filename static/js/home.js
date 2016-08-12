@@ -5,8 +5,17 @@ var searchText;
 var searchButtonLabel;
 var searchIcon;
 var isSearchOpen;
+var searchTextWidth;
 
 function start() {
+    if (window.innerWidth <= 768) {
+        searchTextWidth = "125";
+    } else if (window.innerWidth <= 992) {
+        searchTextWidth = "150";
+    } else {
+        searchTextWidth = "200";
+    }
+    
     profileHeightAdjustment();
     search();
     linkClick();
@@ -75,12 +84,10 @@ function search() {
 }
 
 function openSearchInput() {
-    searchText.style.maxWidth = "15em";
+    $("#searchText").width(searchTextWidth);
     searchText.style.paddingTop = ".1em";
     searchText.style.paddingBottom = ".1em";
-    searchText.style.paddingRight = ".9em";
-    searchText.style.marginLeft = "-200px";
-    searchIcon.style.paddingLeft = "5px";
+    searchText.style.paddingRight = ".35em";
     searchText.select();
 
     searchIcon.style.transition = "background-color .2s ease 0s, color .2s ease 0s";
@@ -91,8 +98,9 @@ function openSearchInput() {
 }
 
 function closeSearchInput() {
-    searchText.style.maxWidth = "0em";
-    searchText.style.padding = "0em";
+    $("#searchText").width("0");
+    searchText.style.width = "0px";
+    searchText.style.padding = "0px";
 
     searchIcon.style.transition = "background-color .2s ease .5s, color .2s ease .5s";
     searchIcon.style.paddingLeft = ".125em";

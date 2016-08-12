@@ -36,20 +36,29 @@
                         <div class="nav navbar-header pull-right" style="padding-top: .3em;">
                             <label>
                                 <form id="searchForm" action="/home">
-                                    <input type="text" name="search" placeholder="search" id="searchText" class="search-text" {% if request.GET.search %}value="{{ request.GET.search }}"{% endif %} />
+                                    <input type="text" name="search" placeholder="search" id="searchText" class="search-text"
+                                    {% if request.GET.search %}value="{{ request.GET.search }}"{% endif %} />
                                 </form>
                             </label>
                             <label id="searchButtonLabel" title="search for someone">
-                                <span id="searchIcon" class="glyphicon glyphicon-search search-button" style="margin-right: .25em;"></span>
+                                <span id="searchIcon" class="glyphicon glyphicon-search search-button"></span>
+                            </label>
+                            <label title="view the directory">
+                                <a href="{% url 'home' %}" role="button" class="nav-icons"
+                                {% ifequal request.path '/home/' %}style="border-bottom: 2px solid #fff;" {% endifequal %}>
+                                    <span class="glyphicon glyphicon-home"></span>
+                                </a>
                             </label>
                             <label title="view your contacts">
-                                <a href="{% url 'contacts' %}" role="button" class="nav-icons">
-                                    <span class="foundicon-address-book" style="margin-right: .25em;"></span>
+                                <a href="{% url 'contacts' %}" role="button" class="nav-icons"
+                                {% ifequal request.path '/contacts/' %}style="border-bottom: 2px solid #fff; height: 41px;" {% endifequal %}>
+                                    <span class="foundicon-address-book"></span>
                                 </a>
                             </label>
                             <label title="view your profile">
-                                <a href="{% url 'profile_self' %}" role="button" class="nav-icons">
-                                    <span class="glyphicon glyphicon-user" style="margin-right: .1em;"></span>
+                                <a href="{% url 'profile_self' %}" role="button" class="nav-icons"
+                                {% ifequal request.path '/profile/' %}style="border-bottom: 2px solid #fff;" {% endifequal %}>
+                                    <span class="glyphicon glyphicon-user"></span>
                                 </a>
                             </label>
                         </div>

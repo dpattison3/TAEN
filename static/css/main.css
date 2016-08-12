@@ -11,12 +11,16 @@ a{
 }
 
 .nav-icons{
-    font-size: 2em;
+    font-size: 28px;
+    height: 37px;
     color: #fff;
-    padding: 0px;
     margin: 0px;
+    padding: 0px;
+    padding-right: 2px;
+    margin-left: 2px;
     text-decoration: none;
     background-color: transparent;
+    display: block;
 }
 
 .nav-icons:hover{
