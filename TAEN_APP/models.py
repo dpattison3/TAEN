@@ -5,7 +5,13 @@ from django.db.models.signals import post_save
 import os
 
 def imgUploadLocation(instance, filename):
-    return "%s/%s" %(instance.id, filename)
+    return "%s/%s/%s" %(instance, 'profile', filename)
+
+def ProjectImgUploadLocation(instance, filename):
+    return "%s/%s/%s/%s" %(instance.entertaener, 'project', instance, filename)
+
+def ToolImgUploadLocation(instance, filename):
+    return "%s/%s/%s/%s" %(instance.entertaener, 'tool', instance, filename)
 
 class Talent(models.Model):
     Artist = 0
@@ -75,7 +81,7 @@ class Project(models.Model):
     contributors = models.CharField(max_length=259, null=True, blank=True)
     description = models.CharField(max_length=2500, null=True, blank=True)
     link = models.URLField()
-    image = models.ImageField(upload_to=imgUploadLocation, blank=True, null=True)
+    image = models.ImageField(upload_to=ProjectImgUploadLocation, blank=True, null=True)
 
     def __str__(self):
         return self.title
@@ -84,7 +90,7 @@ class Tool(models.Model):
     entertaener = models.ForeignKey(Entertaener, on_delete=models.CASCADE, related_name='tool')
     title = models.CharField(max_length=100, null=True, blank=True)
     description = models.CharField(max_length=300, null=True, blank=True)
-    image = models.ImageField(upload_to=imgUploadLocation, blank=True, null=True)
+    image = models.ImageField(upload_to=ToolImgUploadLocation, blank=True, null=True)
 
     def __str__(self):
         return self.title
