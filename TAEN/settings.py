@@ -141,22 +141,43 @@ USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
-STATIC_URL = '/static/'
-#STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static', 'images'),
-        os.path.join(BASE_DIR, 'static', 'css'),
-        os.path.join(BASE_DIR, 'static', 'js'),
-        os.path.join(BASE_DIR, 'static', 'fonts'),
-        os.path.join(BASE_DIR, 'static'),
-)
+
 STATICFILES_FINDERS = [
         'django.contrib.staticfiles.finders.FileSystemFinder',
         'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
-MEDIA_URL = '/media/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = (
+        os.path.join(BASE_DIR, 'static', 'images'),
+        os.path.join(BASE_DIR, 'static', 'css'),
+        os.path.join(BASE_DIR, 'static', 'js'),
+        os.path.join(BASE_DIR, 'static', 'fonts'),
+)
+
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+if DEBUG:
+    STATIC_URL = '/static/'
+    MEDIA_URL = '/media/'
+else:
+    STATICFILES_STORAGE = 'custom_storages.StaticStorage'
+    AWS_HEADERS = {  # see http://developer.yahoo.com/performance/rules.html#expires
+                    'Expires': 'Thu, 31 Dec 2099 20:00:00 GMT',
+                            'Cache-Control': 'max-age=94608000',
+                            }
+    AWS_STORAGE_BUCKET_NAME = 'taenstatic'
+    AWS_ACCESS_KEY_ID = os.environ['AWS_IAM_ACCESS_KEY_ID']
+    AWS_SECRET_ACCESS_KEY = os.environ['AWS_IAM_SECRET_KEY']
+    AWS_S3_CUSTOM_DOMAIN = '%s.s3.amazonaws.com' % AWS_STORAGE_BUCKET_NAME
+    STATICFILES_LOCATION = 'static'
+    STATIC_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, STATICFILES_LOCATION)
+
+    MEDIA_URL = '/media/'
+    MEDIAFILES_LOCATION = 'media'
+    MEDIA_URL = "https://%s/%s/" % (AWS_S3_CUSTOM_DOMAIN, MEDIAFILES_LOCATION)
+    DEFAULT_FILE_STORAGE = 'custom_storages.MediaStorage'
+
 
 PASSWORD_HASHERS = (
                 'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
