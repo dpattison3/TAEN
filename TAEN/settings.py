@@ -16,10 +16,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'u$ycr80e6jr=+ts77jtp4y3#gp4p%2^ij-2j0s8a41*15o5bns'
+SECRET_KEY = os.environ['DJANGO_SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ['DEBUG']
 
 if DEBUG:
     ALLOWED_HOSTS = []
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'TAEN_APP.apps.TaenAppConfig',
     'registration',
+    'storages',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -82,16 +83,28 @@ WSGI_APPLICATION = 'TAEN.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'entertaen',
-        'USER': 'admin',
-        'PASSWORD': 'password',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+if 'RDS_DB_NAME' in os.environ:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2',
+            'NAME': os.environ['RDS_DB_NAME'],
+            'USER': os.environ['RDS_USERNAME'],
+            'PASSWORD': os.environ['RDS_PASSWORD'],
+            'HOST': os.environ['RDS_HOSTNAME'],
+            'PORT': os.environ['RDS_PORT'],
+        }
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'entertaen',
+            'USER': 'admin',
+            'PASSWORD': 'password',
+            'HOST': '127.0.0.1',
+            'PORT': '5432',
+        }
+    }
 
 
 AUTH_PASSWORD_VALIDATORS = [
@@ -110,8 +123,17 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 # These settings set up email sending which prints out the email in the terminal - Needs to change before release - use format below
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-DEFAULT_FROM_EMAIL = 'support@entertaen.com'
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'support@entertaen.com'
+else:
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    DEFAULT_FROM_EMAIL = 'support@entertaen.com'
+    EMAIL_HOST = 'email-smtp.us-east-1.amazonaws.com'
+    EMAIL_HOST_USER = os.environ['AWS_SES_ACCESS_KEY_ID']
+    EMAIL_HOST_PASSWORD = os.environ['AWS_SES_SECRET_KEY']
+    EMAIL_PORT = 587
+    EMAIL_USE_TLS = True
 
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
