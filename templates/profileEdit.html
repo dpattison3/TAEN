@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load staticfiles %}
+{% load static from staticfiles %}
 
 {% block title_block %}ENTERTAEN - Edit Profile{% endblock %}
 {% block background-color %}#f2f2f2{% endblock %}
@@ -190,7 +190,7 @@
                             {% endif %}
                         {% endfor %}
                     {% else %}
-                        <p style="padding-left: 3px;">
+                        <p style="padding-left: 15px;">
                             No projects have been added
                         </p>
                     {% endif %}
@@ -226,7 +226,7 @@
                             </a>
                         {% endfor %}
                     {% else %}
-                        <p style="padding-left: 3px;">
+                        <p style="padding-left: 15px;">
                             No tools have been added
                         </p>
                     {% endif %}
