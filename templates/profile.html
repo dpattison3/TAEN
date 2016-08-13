@@ -165,7 +165,7 @@
                                     {% if project.image %}
                                         <img src="{{ project.image.url }}" class="profile-widget-image" />
                                     {% else %}
-                                        <img src="{% static 'musicIcon.svg' %}" class="profile-widget-image" />
+                                        <img src="{% static 'musicIcon.png' %}" class="profile-widget-image" />
                                     {% endif %}
                                     <p class="profile-widget-description">
                                         {{ project.description }}
@@ -201,7 +201,7 @@
                                 {% if tool.image %}
                                     <img src="{{ tool.image.url }}" class="profile-widget-image" />
                                 {% else %}
-                                    <img src="{% static 'musicIcon.svg' %}" class="profile-widget-image" />
+                                    <img src="{% static 'musicIcon.png' %}" class="profile-widget-image" />
                                 {% endif %}
                                 <p class="profile-widget-title">
                                     {{ tool.title }}
@@ -244,5 +244,5 @@
 {% endblock %}
 
 {% block js_src %}
-    <script src="{% static 'js/searchAndProfile.js' %}"></script>
+    <script src="{% static 'searchAndProfile.js' %}"></script>
 {% endblock %}

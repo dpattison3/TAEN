@@ -11,7 +11,7 @@ a{
 }
 
 .nav-icons{
-    font-size: 28px;
+    font-size: 28px !important;
     height: 37px;
     color: #fff;
     margin: 0px;
