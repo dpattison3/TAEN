@@ -24,7 +24,8 @@
                         {% endif %}
                     </div>
                     <div class="row center-block" style="width: 275px;">
-                        {{ projectForm.image }}
+                        {{ projectForm.image.errors }}
+                        <input id="id_image" name="image" type="file" class="center-block" style="margin-top: 10px; width: 175px;" />
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-7">
