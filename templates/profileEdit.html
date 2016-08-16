@@ -15,9 +15,9 @@
             <div class="row">
                 <div class="center-block" style="width: 125px;">
                     {% if currentPorfilePicture %}
-                        <img src="{{ currentPorfilePicture.url }}" class="profile-image-full" />
+                        <img id="profileImage" src="{{ currentPorfilePicture.url }}" class="profile-image-full" />
                     {% else %}
-                        <img src="{% static 'defaultProfile.png' %}" class="profile-image-full" />
+                        <img id="profileImage" src="{% static 'defaultProfile.png' %}" class="profile-image-full" />
                     {% endif %}
                 </div>
             </div>
@@ -25,7 +25,7 @@
                 <div class="col-xs-12 col-md-8 col-md-offset-2">
                     <p class="center-block" style="width: 175px;">
                         {{ profileForm.picture.errors }}
-                        <input id="id_picture" name="picture" type="file" />
+                        <input id="pictureInput" name="picture" type="file" />
                     </p>
                 </div>
             </div>

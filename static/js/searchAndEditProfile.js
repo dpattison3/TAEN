@@ -248,57 +248,35 @@ function closeSearchInput() {
     isSearchOpen = false;
 }
 
+var url_whitelist = [
+        "^.*(youtube\.com).*$",
+        "^.*(soundcloud\.com).*$",
+        "^.*(spotify\.com).*$",
+        "^.*(apple\.com).*$",
+        "^.*(twitter\.com).*$",
+        "^.*(facebook\.com).*$",
+        "^.*(pinterest\.com).*$",
+        "^.*(tumblr\.com).*$",
+        "^.*(tumblr\.com).*$",
+        "^.*(instagram\.com).*$",
+        "^.*(linkedin\.com).*$",
+        "^.*(bandcamp\.com).*$"
+]
+var regex = new RegExp(url_whitelist.join("|"), "i");
+
 function validateURL(url) {
-    var url_whitelist = [
-            "https://www.youtube.com/.*",
-            "http://www.youtube.com/.*",
-            "www.youtube.com/.*",
-            "youtube.com/.*",
-            "https://soundcloud.com/.*",
-            "http://soundcloud.com/.*",
-            "https://www.soundcloud.com/.*",
-            "http://www.soundcloud.com/.*",
-            "www.soundcloud.com/.*",
-            "soundcloud.com/.*",
-            "https://www.spotify.com/.*",
-            "https://www.spotify.com/.*",
-            "www.spotify.com/.*",
-            "spotify.com/.*",
-            "http://www.apple.com/music/.*",
-            "https://www.apple.com/music/.*",
-            "www.apple.com/music/.*",
-            "apple.com/music/.*",
-            "https://twitter.com/.*",
-            "http://twitter.com/.*",
-            "https://www.twitter.com/.*",
-            "http://www.twitter.com/.*",
-            "www.twitter.com/.*",
-            "twitter.com/.*",
-            "https://www.facebook.com/.*",
-            "http://www.facebook.com/.*",
-            "https://facebook.com/.*",
-            "https://facebook.com/.*",
-            "www.facebook.com/.*",
-            "facebook.com/.*",
-            "https://www.pinterest.com/.*",
-            "http://www.pinterest.com/.*",
-            "https://pinterest.com/.*",
-            "http://pinterest.com/.*",
-            "www.pinterest.com/.*",
-            "pinterest.com/.*",
-            "https://www.tumblr.com/.*",
-            "https://www.tumblr.com/.*",
-            "https://tumblr.com/.*",
-            "http://tumblr.com/.*",
-            "www.tumblr.com/.*",
-            "tumblr.com/.*",
-            "https://www.instagram.com/.*",
-            "http://www.instagram.com/.*",
-            "https://instagram.com/.*",
-            "http://instagram.com/.*",
-            "www.instagram.com/.*",
-            "instagram.com/.*",
-    ]
-    var regex = new RegExp(url_whitelist.join("|"), "i");
-    return(url.match(regex) != null);
+    return (url.match(regex) != null);
 }
+
+
+$("#pictureInput").change(function(e) {
+    for (var i = 0; i < e.originalEvent.srcElement.files.length; i++) {
+        var file = e.originalEvent.srcElement.files[i];
+        var img = document.getElementById("profileImage");
+        var reader = new FileReader();
+        reader.onloadend = function() {
+            img.src = reader.result;
+        }
+        reader.readAsDataURL(file);
+    }
+});

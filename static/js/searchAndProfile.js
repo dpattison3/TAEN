@@ -128,96 +128,35 @@ function closeSearchInput() {
     isSearchOpen = false;
 }
 
-var youtubePattern = [
-        "https://www.youtube.com/.*",
-        "http://www.youtube.com/.*",
-        "www.youtube.com/.*",
-        "youtube.com/.*",
-];
-var youtubeRegex = new RegExp(youtubePattern.join("|"), "i");
+var youtubeRegex = "^.*(youtube\.com).*$";
+var soundcloudRegex = "^.*(soundcloud\.com).*$";
+var spotifyRegex = "^.*(spotify\.com).*$";
+var appleRegex = "^.*(apple\.com).*$";
+var twitterRegex = "^.*(twitter\.com).*$";
+var facebookRegex = "^.*(facebook\.com).*$";
+var pinterestRegex = "^.*(pinterest\.com).*$";
+var tumblrRegex = "^.*(tumblr\.com).*$";
+var instagramRegex = "^.*(instagram\.com).*$";
+var linkedinRegex = "^.*(linkedin\.com).*$";
+var bandcampRegex = "^.*(bandcamp\.com).*$";
 
-var soundcloudPattern = [
-    "https://soundcloud.com/.*",
-    "http://soundcloud.com/.*",
-    "https://www.soundcloud.com/.*",
-    "http://www.soundcloud.com/.*",
-    "www.soundcloud.com/.*",
-    "soundcloud.com/.*",
-];
-var soundcloudRegex = new RegExp(soundcloudPattern.join("|"), "i");
-
-var spotifyPattern = [
-    "https://www.spotify.com/.*",
-    "https://www.spotify.com/.*",
-    "www.spotify.com/.*",
-    "spotify.com/.*",
-];
-var spotifyRegex = new RegExp(spotifyPattern.join("|"), "i");
-
-var applePattern = [
-    "http://www.apple.com/music/.*",
-    "https://www.apple.com/music/.*",
-    "www.apple.com/music/.*",
-    "apple.com/music/.*",
-];
-var appleRegex = new RegExp(applePattern.join("|"), "i");
-
-var twitterPattern = [
-    "https://twitter.com/.*",
-    "http://twitter.com/.*",
-    "https://www.twitter.com/.*",
-    "http://www.twitter.com/.*",
-    "www.twitter.com/.*",
-    "twitter.com/.*",
-];
-var twitterRegex = new RegExp(twitterPattern.join("|"), "i");
-
-var facebookPattern = [
-    "https://www.facebook.com/.*",
-    "http://www.facebook.com/.*",
-    "https://facebook.com/.*",
-    "https://facebook.com/.*",
-    "www.facebook.com/.*",
-    "facebook.com/.*",
-];
-var facebookRegex = new RegExp(facebookPattern.join("|"), "i");
-
-var pinterestPattern = [
-    "https://www.pinterest.com/.*",
-    "http://www.pinterest.com/.*",
-    "https://pinterest.com/.*",
-    "http://pinterest.com/.*",
-    "www.pinterest.com/.*",
-    "pinterest.com/.*",
-];
-var pinterestRegex = new RegExp(pinterestPattern.join("|"), "i");
-
-var tumblrPattern = [
-    "https://www.tumblr.com/.*",
-    "https://www.tumblr.com/.*",
-    "https://tumblr.com/.*",
-    "http://tumblr.com/.*",
-    "www.tumblr.com/.*",
-    "tumblr.com/.*",
-];
-var tumblrRegex = new RegExp(tumblrPattern.join("|"), "i");
-
-var instagramPattern = [
-    "https://www.instagram.com/.*",
-    "http://www.instagram.com/.*",
-    "https://instagram.com/.*",
-    "http://instagram.com/.*",
-    "www.instagram.com/.*",
-    "instagram.com/.*",
-];
-var instagramRegex = new RegExp(instagramPattern.join("|"), "i");
-
-var socialPattern = instagramPattern.concat(tumblrPattern, pinterestPattern,
-        facebookPattern, twitterPattern);
+var socialPattern = [
+        twitterRegex,
+        facebookRegex,
+        pinterestRegex,
+        tumblrRegex,
+        instagramRegex
+]
 var socialRegex = new RegExp(socialPattern.join("|"), "i");
 
-var portfolioPattern = youtubePattern.concat(applePattern, spotifyPattern,
-        soundcloudPattern);
+var portfolioPattern = [
+        youtubeRegex,
+        soundcloudRegex,
+        spotifyRegex,
+        appleRegex,
+        linkedinRegex,
+        bandcampRegex
+]
 var portfolioRegex = new RegExp(portfolioPattern.join("|"), "i");
 
 function urlToIconStyle(url, element) {
@@ -250,7 +189,11 @@ function urlToIconStyle(url, element) {
     } else if (url.match(instagramRegex) != null) {
         newElement.className = "fa fa-instagram";
         newElement.style.color = "#517fa4";
+    } else if (url.match(linkedinRegex) != null) {
+        newElement.className = "fa fa-linkedin-square";
+        newElement.style.color = "#4875B4";
     }
+
     element.appendChild(newElement);
 }
 
