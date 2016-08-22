@@ -194,6 +194,9 @@ h3{
     font-size:14px;
     color: #fff;
 }
+.errorlist {
+    list-style-type: none;
+}
 
 @media (max-width: 992px) {
     .computer-pictures{

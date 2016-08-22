@@ -94,6 +94,13 @@
                         {% else %}
                             <p>No talent specified</p>
                         {% endif %}
+                        <p>
+                            {% if profile.genres %}
+                                {{ profile.genres }}
+                            {% else %}
+                                No Genres
+                            {% endif %}
+                        </p>
                         <p>{{ profile.distance }} miles away</p>
                     </div>
                 </div>

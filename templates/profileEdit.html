@@ -52,7 +52,7 @@
                         </a>
                     </p>
                 </p>
-                <p>
+                <p  class="talent-bullets">
                     Select your talents:
                     {{ profileForm.talent }}
                     {{ profileForm.talent.errors }}
@@ -80,8 +80,9 @@
                 <div class="col-md-6 col-xs-12">
                     <p>
                         This will never be displayed. It is only used for calculating
-                        approximate distances to other users.
+                        approximate distances to other users. <a href="http://www.gps-coordinates.net/">Find your coordinates here</a>
                     </p>
+
                     <p>
                         Latitude:
                         <input type="text" name="latitude" value="{% if profileForm.latitude.value %}{{ profileForm.latitude.value }}{% endif %}" placeholder="latitude..."
@@ -96,7 +97,7 @@
             </div>
             <div class="row" style="padding-top: 20px; border-top: 1px solid #dbdbdb;">
                 {{ profileForm.pitch.errors }}
-                <textarea name="pitch" type="text" maxlength="5000" placeholder="pitch yourself..."
+                <textarea name="pitch" type="text" maxlength="5000" placeholder="Pitch/Bio"
                 style="width: 90%; height: 4em; margin-top: 10px; margin-bottom: 10px; padding: 10px;{% if userForm.pitch.errors %}border: 1px solid red;{% endif %}"
                 class="center-block">{% if profileForm.pitch.value %}{{ profileForm.pitch.value }}{% endif %}</textarea>
             </div>
@@ -239,6 +240,11 @@
                             Add a tool <span class="glyphicon glyphicon-plus-sign" style="color: #fff;"></span>
                         </a>
                     </button>
+                    <div id="SubmitChanges">
+                        <button class="btn btn-success center-block" style="margin-top: 3px; margin-bottom:3px">
+                            Submit Changes
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
